@@ -1,14 +1,20 @@
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { SwUpdate } from '@angular/service-worker';
-import { addIcons } from 'ionicons';
+import {
+  Component,
+  HostListener,
+  inject,
+  OnInit,
+  ViewEncapsulation,
+} from "@angular/core";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
+import { SwUpdate } from "@angular/service-worker";
+import { addIcons } from "ionicons";
 
-import { SplashScreen } from '@capacitor/splash-screen';
-import { StatusBar } from '@capacitor/status-bar';
+import { SplashScreen } from "@capacitor/splash-screen";
+import { StatusBar } from "@capacitor/status-bar";
 
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from "@ionic/storage-angular";
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from "@angular/forms";
 import {
   IonApp,
   IonContent,
@@ -25,7 +31,7 @@ import {
   MenuController,
   Platform,
   ToastController,
-} from '@ionic/angular/standalone';
+} from "@ionic/angular/standalone";
 import {
   calendarOutline,
   hammer,
@@ -38,32 +44,32 @@ import {
   peopleOutline,
   person,
   personAdd,
-} from 'ionicons/icons';
-import { UserService } from './providers/user.service';
+} from "ionicons/icons";
+import { UserService } from "./providers/user.service";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [
-        RouterLink,
-        RouterLinkActive,
-        IonRouterOutlet,
-        IonLabel,
-        IonIcon,
-        IonMenuToggle,
-        IonToggle,
-        IonList,
-        IonListHeader,
-        IonItem,
-        IonContent,
-        IonMenu,
-        IonSplitPane,
-        IonApp,
-        FormsModule,
-    ],
-    providers: [MenuController, ToastController],
-    encapsulation: ViewEncapsulation.None
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    IonRouterOutlet,
+    IonLabel,
+    IonIcon,
+    IonMenuToggle,
+    IonToggle,
+    IonList,
+    IonListHeader,
+    IonItem,
+    IonContent,
+    IonMenu,
+    IonSplitPane,
+    IonApp,
+    FormsModule,
+  ],
+  providers: [MenuController, ToastController],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
   private router = inject(Router);
@@ -76,30 +82,34 @@ export class AppComponent implements OnInit {
 
   appPages = [
     {
-      title: 'Schedule',
-      url: '/app/tabs/schedule',
-      icon: 'calendar',
+      title: "Schedule",
+      url: "/app/tabs/schedule",
+      icon: "calendar",
     },
     {
-      title: 'Speakers',
-      url: '/app/tabs/speakers',
-      icon: 'people',
+      title: "Speakers",
+      url: "/app/tabs/speakers",
+      icon: "people",
     },
     {
-      title: 'Map',
-      url: '/app/tabs/map',
-      icon: 'map',
+      title: "Map",
+      url: "/app/tabs/map",
+      icon: "map",
     },
     {
-      title: 'About',
-      url: '/app/tabs/about',
-      icon: 'information-circle',
+      title: "About",
+      url: "/app/tabs/about",
+      icon: "information-circle",
     },
   ];
   loggedIn = false;
   dark = false;
 
+  private inactivityTimer: any;
+  private readonly TIMEOUT = 10000; // 20 secondi
+
   constructor() {
+    this.resetTimer(); // avvia il timer al bootstrap
     addIcons({
       calendarOutline,
       peopleOutline,
@@ -115,6 +125,26 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // Eventi di interazione utente
+  @HostListener("document:mousemove")
+  @HostListener("document:click")
+  @HostListener("document:keydown")
+  @HostListener("document:touchstart")
+  onUserAction() {
+    this.resetTimer();
+  }
+
+  private resetTimer() {
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer);
+    }
+
+    this.inactivityTimer = setTimeout(() => {
+      console.log("⏳ Timeout di inattività, torno al tutorial");
+      this.router.navigateByUrl("/tutorial", { replaceUrl: true });
+    }, this.TIMEOUT);
+  }
+
   async ngOnInit() {
     this.initializeApp();
     await this.storage.create();
@@ -123,12 +153,12 @@ export class AppComponent implements OnInit {
 
     this.swUpdate.versionUpdates.subscribe(async () => {
       const toast = await this.toastCtrl.create({
-        message: 'Update available!',
-        position: 'bottom',
+        message: "Update available!",
+        position: "bottom",
         buttons: [
           {
-            role: 'cancel',
-            text: 'Reload',
+            role: "cancel",
+            text: "Reload",
           },
         ],
       });
@@ -144,7 +174,7 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      if (this.platform.is('hybrid')) {
+      if (this.platform.is("hybrid")) {
         StatusBar.hide();
         SplashScreen.hide();
       }
@@ -152,7 +182,7 @@ export class AppComponent implements OnInit {
   }
 
   checkLoginStatus() {
-    return this.userService.isLoggedIn().then(loggedIn => {
+    return this.userService.isLoggedIn().then((loggedIn) => {
       return this.updateLoggedInStatus(loggedIn);
     });
   }
@@ -164,32 +194,32 @@ export class AppComponent implements OnInit {
   }
 
   listenForLoginEvents() {
-    window.addEventListener('user:login', () => {
+    window.addEventListener("user:login", () => {
       this.updateLoggedInStatus(true);
     });
 
-    window.addEventListener('user:signup', () => {
+    window.addEventListener("user:signup", () => {
       this.updateLoggedInStatus(true);
     });
 
-    window.addEventListener('user:logout', () => {
+    window.addEventListener("user:logout", () => {
       this.updateLoggedInStatus(false);
     });
   }
 
   logout() {
     this.userService.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/schedule');
+      return this.router.navigateByUrl("/app/tabs/schedule");
     });
   }
 
   openTutorial() {
     this.menu.enable(false);
-    this.storage.set('ion_did_tutorial', false);
-    this.router.navigateByUrl('/tutorial');
+    this.storage.set("ion_did_tutorial", false);
+    this.router.navigateByUrl("/tutorial");
   }
 
   toggleDarkMode() {
-    document.documentElement.classList.toggle('ion-palette-dark', this.dark);
+    document.documentElement.classList.toggle("ion-palette-dark", this.dark);
   }
 }

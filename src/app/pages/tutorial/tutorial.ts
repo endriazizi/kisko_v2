@@ -34,17 +34,31 @@ export class TutorialPage {
     });
   }
 
+  // startApp() {
+  //   this.router
+  //     .navigateByUrl('/app/tabs/schedule', { replaceUrl: true })
+  //     .then(() => this.storage.set('ion_did_tutorial', true));
+  // }
+
   startApp() {
-    this.router
-      .navigateByUrl('/app/tabs/schedule', { replaceUrl: true })
-      .then(() => this.storage.set('ion_did_tutorial', true));
-  }
+  this.router
+    .navigateByUrl('/app/tabs/schedule', { replaceUrl: true })
+    .then(() => {
+      // return this.storage.set('ion_did_tutorial', true);
+    })
+    .then(() => {
+      console.log('Tutorial completato e storage aggiornato');
+    })
+    .catch((err) => {
+      console.error('Errore durante startApp:', err);
+    });
+}
 
   ionViewWillEnter() {
     this.storage.get('ion_did_tutorial').then(res => {
-      if (res === true) {
-        this.router.navigateByUrl('/app/tabs/schedule', { replaceUrl: true });
-      }
+      // if (res === true) {
+      //   this.router.navigateByUrl('/app/tabs/schedule', { replaceUrl: true });
+      // }
     });
 
     this.menu.enable(false);

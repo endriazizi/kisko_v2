@@ -8,6 +8,11 @@ export interface Speaker {
   location: string;
   email: string;
   phone: string;
+
+  category: string;
+  description: string;
+  address: string;
+  openingHours: string
   id: string;
   sessions?: Session[];
 }

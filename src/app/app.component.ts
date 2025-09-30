@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
       icon: "calendar",
     },
     {
-      title: "Speakers",
+      title: "Attività",
       url: "/app/tabs/speakers",
       icon: "people",
     },
@@ -106,7 +106,10 @@ export class AppComponent implements OnInit {
   dark = false;
 
   private inactivityTimer: any;
-  private readonly TIMEOUT = 10000; // 20 secondi
+  // private readonly TIMEOUT = 20000; // 20 secondi
+    private readonly TIMEOUT = 120000; // 20 secondi
+
+  
 
   constructor() {
     this.resetTimer(); // avvia il timer al bootstrap

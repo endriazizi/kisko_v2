@@ -12,8 +12,7 @@ import {
   IonHeader,
   IonIcon,
   IonLabel,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+  IonToolbar, IonText, IonItem, IonFabButton, IonFab } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   callOutline,
@@ -31,7 +30,7 @@ import { ConferenceService } from '../../providers/conference.service';
     selector: 'page-speaker-detail',
     templateUrl: 'speaker-detail.html',
     styleUrls: ['./speaker-detail.scss'],
-    imports: [
+    imports: [IonFab, IonFabButton, IonItem, IonText, 
         IonContent,
         IonHeader,
         IonToolbar,

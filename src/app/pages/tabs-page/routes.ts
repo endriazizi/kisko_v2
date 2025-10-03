@@ -63,6 +63,15 @@ export const TABS_ROUTES: Routes = [
           },
         ],
       },
+
+           // 👇 AGGIUNTA LA ROTTA PLATEFORM DENTRO I TABS
+      {
+        path: 'plateform',
+        loadComponent: () =>
+          import('../plateform/plateform.page').then(m => m.PlateformPage),
+      },
+
+      
       {
         path: '',
         redirectTo: '/app/tabs/schedule',

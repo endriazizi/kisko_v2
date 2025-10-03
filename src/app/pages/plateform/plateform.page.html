@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Plateform</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Fallback: se sono in browser mostro il sito in un iframe -->
+  <iframe
+    *ngIf="isBrowser"
+    src="https://ludwigstrasse.plateform.app/"
+    style="width:100%; height:100%; border:none;"
+  ></iframe>
+
+  <!-- In app nativa compare solo il testo mentre si apre il ThemeableBrowser -->
+  <p *ngIf="!isBrowser">Caricamento Plateform...</p>
+</ion-content>

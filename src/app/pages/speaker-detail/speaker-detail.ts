@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import {
   ActionSheetController,
@@ -12,7 +12,12 @@ import {
   IonHeader,
   IonIcon,
   IonLabel,
-  IonToolbar, IonText, IonItem, IonFabButton, IonFab } from '@ionic/angular/standalone';
+  IonToolbar,
+  IonText,
+  IonItem,
+  IonFabButton,
+  IonFab,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   callOutline,
@@ -27,22 +32,27 @@ import { Speaker } from '../../interfaces/conference.interfaces';
 import { ConferenceService } from '../../providers/conference.service';
 
 @Component({
-    selector: 'page-speaker-detail',
-    templateUrl: 'speaker-detail.html',
-    styleUrls: ['./speaker-detail.scss'],
-    imports: [IonFab, IonFabButton, IonItem, IonText, 
-        IonContent,
-        IonHeader,
-        IonToolbar,
-        IonButtons,
-        IonBackButton,
-        IonButton,
-        IonIcon,
-        IonChip,
-        IonLabel,
-        NgOptimizedImage,
-    ],
-    providers: [InAppBrowser, ActionSheetController]
+  selector: 'page-speaker-detail',
+  templateUrl: 'speaker-detail.html',
+  styleUrls: ['./speaker-detail.scss'],
+  imports: [
+    IonFab,
+    IonFabButton,
+    IonItem,
+    IonText,
+    RouterLink,
+    IonContent,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonBackButton,
+    IonButton,
+    IonIcon,
+    IonChip,
+    IonLabel,
+    NgOptimizedImage,
+  ],
+  providers: [InAppBrowser, ActionSheetController],
 })
 export class SpeakerDetailPage {
   speaker: Speaker;
@@ -65,7 +75,7 @@ export class SpeakerDetailPage {
   }
 
   ionViewWillEnter() {
-    this.confService.load().subscribe(data => {
+    this.confService.load().subscribe((data) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       if (data && data.speakers) {
         for (const speaker of data.speakers) {
@@ -89,9 +99,6 @@ export class SpeakerDetailPage {
         {
           text: 'Copy Link',
           handler: () => {
-            console.log(
-              'Copy link clicked on https://twitter.com/' + speaker.twitter
-            );
             if (
               (window as any).cordova &&
               (window as any).cordova.plugins.clipboard
@@ -116,7 +123,7 @@ export class SpeakerDetailPage {
   }
 
   async openContact(speaker: Speaker) {
-    const mode = 'ios'; // this.config.get('mode');
+    const mode = 'ios';
 
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Contact ' + speaker.name,

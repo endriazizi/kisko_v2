@@ -1,5 +1,6 @@
 export interface Speaker {
   name: string;
+  logo: string;
   profilePic: string;
   instagram: string;
   twitter: string;

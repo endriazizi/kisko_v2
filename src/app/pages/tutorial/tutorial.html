@@ -1,53 +1,35 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="startApp()" [hidden]="!showSkip"
-        >Skip</ion-button
-      >
+      <ion-button color="primary" (click)="startApp()" [hidden]="!showSkip">
+        Skip
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
+  <!-- Barra superiore info -->
+<div class="info-kiosk">
+<div class="clock">🕒 {{ currentTime }}</div>
+<div class="date">📅 {{ currentDate }}</div>
+<div class="weather" *ngIf="weather">
+🌤️ {{ weather.name }} - {{ weather.weather[0].description }}
+({{ weather.main.temp }}°C)
+</div>
+</div>
+
   <div class="slide-container">
     <section class="slide">
       <img src="assets/img/ica-slidebox-img-1.png" class="slide-image" />
       <h2 class="slide-title">
-        Welcome to
-        <b>CASTELRAIMONDO</b>
+        Welcome to <b>CASTELRAIMONDO</b>
       </h2>
       <p>
-        The <b>Kiosko multimedialle</b> is a practical preview of the kiosk in action, and a demonstration of proper code use.
+        Centro commerciale Naturale "<b>Il Cassero 2.0</b>" è il progetto di
+        riqualificazione e valorizzazione territoriale realizzato da un' aggregazione di 10 imprese locali che, con una comunione di intenti, hanno dato vita ad una serie di interventi volti al potenziamento del decoro delle proprie attività e ad un intervento condiviso, che si è tradotto in un totem multimediale per la promozione delle imprese e del territorio di Castelraimondo. Un progetto che premia la sinergia e il fare sistema.
       </p>
     </section>
 
     <section class="slide">
       <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic?</h2>
-      <p>
-        <b>Ionic Framework</b> is an open source SDK that enables developers to
-        build high quality mobile apps with web technologies like HTML, CSS, and
-        JavaScript.
-      </p>
-    </section>
-
-    <section class="slide">
-      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic Appflow?</h2>
-      <p>
-        <b>Ionic Appflow</b> is a powerful set of services and features built on
-        top of Ionic Framework that brings a totally new level of app
-        development agility to mobile dev teams.
-      </p>
-    </section>
-
-    <section class="slide">
-      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
-      <h2 class="slide-title">Ready to Play?</h2>
-      <ion-button fill="clear" (click)="startApp()">
-        Continue
-        <ion-icon slot="end" name="arrow-forward"></ion-icon>
-      </ion-button>
-    </section>
-  </div>
-</ion-content>

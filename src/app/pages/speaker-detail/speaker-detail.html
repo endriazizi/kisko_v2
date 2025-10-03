@@ -8,18 +8,10 @@
       @if (speaker) {
       <ion-buttons slot="end">
         <ion-button (click)="openContact(speaker)">
-          <ion-icon
-            slot="icon-only"
-            [ios]="'call-outline'"
-            [md]="'call-sharp'"
-          ></ion-icon>
+          <ion-icon slot="icon-only" [ios]="'call-outline'" [md]="'call-sharp'"></ion-icon>
         </ion-button>
         <ion-button (click)="openSpeakerShare(speaker)">
-          <ion-icon
-            slot="icon-only"
-            [ios]="'share-outline'"
-            [md]="'share-sharp'"
-          ></ion-icon>
+          <ion-icon slot="icon-only" [ios]="'share-outline'" [md]="'share-sharp'"></ion-icon>
         </ion-button>
       </ion-buttons>
       }
@@ -28,99 +20,48 @@
 
   <div class="speaker-background">
     <img
-      ngSrc="{{speaker?.profilePic ?? '/assets/placeholder.jpg'}}"
-      [alt]="speaker?.name ?? 'Speaker profile'"
+      [ngSrc]="speaker?.profilePic || 'assets/placeholder.jpg'"
+      [alt]="speaker?.name || 'Speaker profile'"
       width="70"
       height="70"
       priority
     />
-    <h2></h2>
     <h2 class="custom-title">{{speaker?.name ?? 'Loading...'}}</h2>
   </div>
 
   <div class="ion-padding speaker-detail">
-    <p>
-      {{speaker?.about ?? 'Loading biography...'}} Say hello on social media!
-    </p>
+    
+    <img [src]="speaker?.logo" style="max-height:150px; display:block; margin:auto;">
+
+
+    <div class="about-text" [innerHTML]="speaker?.about || 'Loading biography...'"></div>
 
     <hr />
 
     @if (speaker) {
     <div class="social-links">
-
-      <!-- <ion-chip
-        color="twitter"
-        button
-        (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)"
-        aria-label="Visit Twitter profile"
-      >
-        <ion-icon name="logo-twitter"></ion-icon>
-        <ion-label>Twitter</ion-label>
-      </ion-chip> -->
-      
-      <ion-chip
-        color="twitter"
-        button aria-label="Visit Twitter profile"
-      >
+      <ion-chip color="twitter" button aria-label="Visit Twitter profile">
         <ion-icon name="logo-twitter"></ion-icon>
         <ion-label>Twitter</ion-label>
       </ion-chip>
 
-      <ion-chip
-        color="dark"
-        button
-        aria-label="Visit Facebok profile"
-      >
+      <ion-chip color="dark" button aria-label="Visit Facebook profile">
         <ion-icon name="logo-facebook"></ion-icon>
         <ion-label>Facebook</ion-label>
       </ion-chip>
 
-      <ion-chip
-        color="instagram"
-        button
-        aria-label="Visit Instagram profile"
-      >
+      <ion-chip color="instagram" button aria-label="Visit Instagram profile">
         <ion-icon name="logo-instagram"></ion-icon>
         <ion-label>Instagram</ion-label>
       </ion-chip>
     </div>
     }
 
-    
-  <img [src]="speaker?.profilePic" style="max-height:150px; display:block; margin:auto;">
-  <h2>{{speaker?.category }}</h2>
-  <p>{{speaker?.description}}</p>
-  <ion-item><ion-label>📍 {{speaker?.address}}</ion-label></ion-item>
-  <ion-item><ion-label>📞 {{speaker?.phone}}</ion-label></ion-item>
-  <ion-item><ion-label>🕒 {{speaker?.openingHours}}</ion-label></ion-item>
+    <h2>{{speaker?.category }}</h2>
+    <p>{{speaker?.description}}</p>
 
+    <ion-item><ion-label>📍 {{speaker?.address}}</ion-label></ion-item>
+    <ion-item><ion-label>📞 {{speaker?.phone}}</ion-label></ion-item>
+    <ion-item><ion-label>🕒 {{speaker?.openingHours}}</ion-label></ion-item>
   </div>
-
-
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/']">
-      <ion-icon name="home-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
-
-
-  <ion-text color="primary">
-  <h1>H1: The quick brown fox jumps over the lazy dog</h1>
-</ion-text>
-
-<ion-text color="secondary">
-  <h2>H2: The quick brown fox jumps over the lazy dog</h2>
-</ion-text>
-
-<ion-text color="tertiary">
-  <h3>H3: The quick brown fox jumps over the lazy dog</h3>
-</ion-text>
-
-<p>
-  <ion-text color="warning"><ion-icon name="warning"></ion-icon></ion-text>
-  I saw a werewolf with a Chinese menu in his hand. Walking through the
-  <ion-text color="success"><sub>streets</sub></ion-text> of Soho in the rain. He
-  <ion-text color="medium"><i>was</i></ion-text> looking for a place called Lee Ho Fook's. Gonna get a
-  <ion-text color="danger">big dish of beef chow mein.</ion-text>
-</p>
 </ion-content>

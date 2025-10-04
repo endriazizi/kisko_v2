@@ -9,6 +9,7 @@ export interface Speaker {
   location: string;
   email: string;
   phone: string;
+  sito:  string;
 
   category: string;
   description: string;
@@ -52,7 +53,8 @@ export interface MapLocation {
   name: string;
   lat: number;
   lng: number;
-  center?: boolean;
+  center?: boolean;   
+  icon?: string;     
 }
 
 export interface ConferenceData {
@@ -67,5 +69,6 @@ export interface Location {
   name: string;
   lat: number;
   lng: number;
-  center?: boolean;
+  center?: boolean;   
+  icon?: string;      
 }

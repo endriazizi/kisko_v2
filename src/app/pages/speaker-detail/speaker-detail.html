@@ -63,12 +63,17 @@
     <ion-item><ion-label>🕒 {{speaker?.openingHours}}</ion-label></ion-item>
   </div>
 
-  <!-- 🔹 Bottone in fondo SOLO se Ludwig -->
-  @if (speaker?.name === 'Ludwig') {
-    <div class="ion-padding">
-<ion-button expand="block" color="primary" [routerLink]="['/app/tabs/plateform']">
-  Apri Plateform
-</ion-button>
-    </div>
-  }
+
+
+@if (speaker?.name === 'Ludwig' || speaker?.name === 'Gelateria Carnevali') {
+  <div class="ion-padding">
+    <ion-button
+      expand="block"
+      color="primary"
+      [routerLink]="['/app/tabs/plateform', speaker?.sito]"
+    >
+      Apri Plateform
+    </ion-button>
+  </div>
+}
 </ion-content>

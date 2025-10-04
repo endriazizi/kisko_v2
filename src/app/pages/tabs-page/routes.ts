@@ -66,7 +66,7 @@ export const TABS_ROUTES: Routes = [
 
            // 👇 AGGIUNTA LA ROTTA PLATEFORM DENTRO I TABS
       {
-        path: 'plateform',
+        path: 'plateform/:id',
         loadComponent: () =>
           import('../plateform/plateform.page').then(m => m.PlateformPage),
       },

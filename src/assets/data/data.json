@@ -1,40 +1,72 @@
 {
   "schedule": [
     {
-      "date": "2047-05-17",
+      "date": "",
       "groups": [
         {
-          "time": "8:00 am",
+          "time": "Ottobre 2025",
           "sessions": [
             {
-              "name": "Breakfast",
-              "timeStart": "8:00 am",
-              "timeEnd": "9:00 am",
-              "location": "Dining Hall",
-              "tracks": [
-                "Food"
-              ],
-              "id": "1"
-            }
-          ]
-        },
-        {
-          "time": "9:15 am",
-          "sessions": [
-            {
-              "name": "Getting Started with Ionic",
-              "location": "Hall 2",
+              "name": "Motocalvalcata a cura del Moto Club Castelraimondo",
+              "location": "Piazza Dante",
               "description": "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
               "speakerNames": [
                 "Ted Turtle"
               ],
-              "timeStart": "9:30 am",
-              "timeEnd": "9:45 am",
+              "timeStart": "Domenica 12 ore 9.30",
+              "timeEnd": "",
               "tracks": [
                 "Ionic"
               ],
               "id": "2"
             },
+            {
+              "name": "26^ Cerimonia di Commemorazione del Sommergibilista Dino Buglioni",
+              "location": "Castel Santa Maria",
+              "description": "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
+              "speakerNames": [
+                "Rachel Rabbit"
+              ],
+              "timeStart": "Domenica 12 ore 10.30",
+              "timeEnd": "10:00 am",
+              "tracks": [
+                "Tooling"
+              ],
+              "id": "3"
+            },
+            {
+              "name": "PittaRosso Pink Parade a cura della A.S.D. Basket Castelraimondo",
+              "location": "Piazza Dante",
+              "description": "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
+              "speakerNames": [
+                "Ted Turtle"
+              ],
+              "timeStart": "Domenica 19 ore 9.30",
+              "timeEnd": "",
+              "tracks": [
+                "Ionic"
+              ],
+              "id": "2"
+            },
+            {
+              "name": "Festa della Castagna , a cura della Società Ope-raia di Mutuo Soccorso di Crispiero e della Libera Associazione Pro Crispiero",
+              "location": "Frazione di Crispiero",
+              "description": "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
+              "speakerNames": [
+                "Ted Turtle"
+              ],
+              "timeStart": "Domenica 19, intera giornata",
+              "timeEnd": "",
+              "tracks": [
+                "Ionic"
+              ],
+              "id": "2"
+            }
+          ]
+        },
+        {
+          "time": "Novembre 2025",
+          "sessions": [
             {
               "name": "Ionic Tooling",
               "location": "Executive Ballroom",
@@ -361,6 +393,7 @@
       "address": "Corso Italia 65, Castelraimondo",
       "phone": "+39 351 7010611",
       "openingHours": "pranzo 12:00-15:30 - cena 12:00-22:30",
+      "sito": "https://ludwigstrasse.plateform.app",
       "id": "2"
     },
     {
@@ -393,17 +426,18 @@
       "email": "eva@example.com",
       "phone": "+39 0737 641155",
       "openingHours": "pranzo 12:00-15:30 - cena 12:00-22:30",
+      "sito": "https://www.gelateriacarnevali.com/",
       "id": "4"
     },
     {
       "name": "Tabaccheria Cerqueti",
-          "logo": "/assets/img/speakers/tabaccheria_cerqueti_banner.png",
+      "logo": "/assets/img/speakers/tabaccheria_cerqueti_banner.png",
       "profilePic": "/assets/img/speakers/tabaccheria_cerqueti_banner.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
       "about": "🚬 La Tabaccheria Cerqueti è presente nel nostro paese da ben tre generazioni, gestita con passione e dedizione prima da Rolando, poi da Brunella ed infine da me.\n\n📍 La mia attività è cresciuta negli anni nel centro di Castelraimondo, diventando un punto di riferimento per ogni esigenza quotidiana.\n\n📰 Da noi trovate non solo tabacchi, giochi e giornali, ma anche servizi utili e sempre aggiornati.\n\n🙏 Ringrazio ogni cliente che mi permette di lavorare con il sorriso. Insieme ai miei indispensabili collaboratori siamo pronti ad accogliervi e soddisfare ogni esigenza.\n\n❤️ GRAZIE!",
       "title": "Software Engineer",
-       "category": "Edicola Tabaccheria",
+      "category": "Edicola Tabaccheria",
       "location": "Everywhere",
       "address": "Corso Italia, 84, 62022 Castelraimondo",
       "email": "eva@example.com",
@@ -413,14 +447,14 @@
     },
     {
       "name": "Ristorante Nuovo Mondo",
-          "logo": "/assets/img/speakers/nuovomondo_banner.png",
+      "logo": "/assets/img/speakers/nuovomondo_banner.png",
       "profilePic": "/assets/img/speakers/nuovomondo_pizza_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
       "about": "🍽️ Ristorante Nuovo Mondo\n\n🐟 Assapora il meglio del mare nel nostro ristorante di pesce!\n\n🍤 Scopri i nostri piatti e vieni a provare la nostra frittura mista di pesce.\n\n📍 Ti aspettiamo a Castelraimondo in Viale Europa, 12.\n\n🕒 Siamo aperti pranzo e cena.\n\n📞 È gradita la prenotazione al numero 0737640099",
       "title": "Software Engineer",
-             "category": "Ristorante",
-            "location": "Everywhere",
+      "category": "Ristorante",
+      "location": "Everywhere",
       "address": "Viale Europa, 12, 14, 62022 Castelraimondo",
       "email": "eva@example.com",
       "phone": "+39 0737 640099",
@@ -428,51 +462,51 @@
       "id": "6"
     },
     {
-      "name": "Isabella Iguana",
-      "profilePic": "/assets/img/speakers/iguana.jpg",
+      "name": "Gelateria Centrale",
+      "logo": "/assets/img/speakers/centrale_banner.png",
+      "profilePic": "/assets/img/speakers/centrale_pizza_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
-      "about": "Isabella is an Iguana. Isabella's interests include crystals, architecture, and candle-making.",
+      "about": "☕ Nel cuore di Castelraimondo, il Gran Caffè Centrale è un punto di riferimento per chi cerca gusto, qualità e accoglienza.\n\n🍰 Dalla colazione alla pausa dolce del pomeriggio, ogni momento è quello giusto per fermarsi a gustare un caffè eccellente o un gelato artigianale preparato con ingredienti selezionati.\n\n🥐 Il locale unisce tradizione e modernità, offrendo anche una selezione di pasticceria fresca, aperitivi curati e proposte stagionali.\n\n🏡 Un luogo ideale per ritrovarsi, rilassarsi e lasciarsi coccolare dal sapore autentico di un’eccellenza del territorio.",
       "title": "Software Engineer",
+      "category": "Gelateria Artigianale - Bar - Caffetteria",
       "location": "Everywhere",
-      "email": "isabella@example.com",
-      "phone": "+1-541-754-3010",
+      "address": "Corso Italia, 21, 62022 Castelraimondo",
+      "email": "eva@example.com",
+      "phone": "+39 348 382 4257",
+      "openingHours": "16:30, 21:00",
       "id": "7"
     },
     {
-      "name": "Karl Kitten",
-      "profilePic": "/assets/img/speakers/kitten.jpg",
+      "name": "Pizza El Pedro",
+      "logo": "/assets/img/speakers/pizza_banner.png",
+      "profilePic": "/assets/img/speakers/pizza_pizza_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
-      "about": "Karl is a Kitten. Karl's interests include skiing, jewelry, and needlepoint.",
+      "about": "🍕 Pizza El Pedro nasce 34 anni fa, gestita con discreto successo sino al 2022.\n\n👉 Da quell’anno è iniziata la nuova gestione che ha portato un rinnovamento generale: locali sempre più moderni e confortevoli e, soprattutto, una pizza innovativa per soddisfare le esigenze e i gusti dei clienti.\n\n🌿 Utilizziamo materie prime di qualità e, ove possibile, di provenienza locale per valorizzare e sostenere il territorio.\n\n🔬 Grazie ai frequenti aggiornamenti, alle ricerche e sperimentazioni, è nato un prodotto dalle eccellenti qualità organolettiche che si traducono in una straordinaria facilità di digestione e un’ineguagliabile sensazione al palato.",
       "title": "Developer Advocate",
+      "category": "Pizzeria al Taglio",
       "location": "Everywhere",
-      "email": "karl@example.com",
-      "phone": "+1-541-754-3010",
+      "address": "Corso Italia, 146, 62022 Castelraimondo",
+      "email": "eva@example.com",
+      "phone": "+39 +39 348 3824257",
+      "openingHours": "16:30 - 21:00",
       "id": "8"
     },
     {
-      "name": "Lionel Lion",
-      "profilePic": "/assets/img/speakers/lion.jpg",
+      "name": "CONAD CITY",
+      "logo": "/assets/img/speakers/conad_banner.png",
+      "profilePic": "/assets/img/speakers/conad_pizza_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
-      "about": "Lionel is a Lion. Lionel's interests include lizards and mathematics.",
-      "title": "Developer Advocate",
+"about": "🏬 Qualità, convenienza e territorio.\n\nSiamo il tuo supermercato di fiducia a Castelraimondo: ogni giorno selezioniamo prodotti freschi e di marca Conad, puntando su qualità e convenienza, con un’attenzione particolare ai prodotti del territorio.\n\n🛒 Offriamo anche la spesa a domicilio: portiamo noi la spesa fino a casa tua.\n\n---\n\n⏰ Orari\n\nLunedì–Sabato: 8:30–20:00\nDomenica: chiuso\n(Orari continuati per venire incontro a chi lavora.)\n\n---\n\n🛍️ Cosa trovi da noi\n\n• Reparti freschi e assortimento completo per la spesa di tutti i giorni.\n• Ampia scelta di prodotti a marchio Conad: qualità garantita a prezzi accessibili.\n• Prodotti locali per valorizzare i sapori del territorio.\n• Servizi comodi: consegna a domicilio, accesso senza barriere, pagamenti digitali (Carta Insieme, Conad Card, Conad Pay).\n\n---\n\n💡 Perché sceglierci\n\n• Qualità e prezzi ragionevoli, con promozioni ricorrenti.\n• Personale attento e disponibile, orientato al servizio.\n• Pulizia e ordine in negozio per una spesa rapida e piacevole.\n\n(Questi aspetti sono spesso evidenziati dagli articoli locali e dalle recensioni online sul punto vendita di Castelraimondo)\n\n---\n\n💬 Dicono di noi (dal web)\n\n«Prezzi ragionevoli, tanti prodotti di qualità e personale al servizio del cliente»",
+"title": "Software Engineer",
+      "category": "Supermercato",
       "location": "Everywhere",
-      "email": "lionel@example.com",
-      "phone": "+1-541-754-3010",
-      "id": "9"
-    },
-    {
-      "name": "Molly Mouse",
-      "profilePic": "/assets/img/speakers/mouse.jpg",
-      "instagram": "ionicframework",
-      "twitter": "ionicframework",
-      "about": "Molly is a Mouse. Molly's interests include werewolves and magic.",
-      "title": "Software Engineer",
-      "location": "Everywhere",
-      "email": "molly@example.com",
-      "phone": "+1-541-754-3010",
+      "address": "Via Enrico Mattei, 57, 62022 Castelraimondo MC",
+      "email": "eva@example.com",
+      "phone": "+39 0737 641418",
+      "openingHours": "08:30 - 20:00",
       "id": "10"
     },
     {
@@ -514,15 +548,18 @@
   ],
   "map": [
     {
-      "name": "Monona Terrace Convention Center",
-      "lat": 43.071584,
-      "lng": -89.38012,
-      "center": true
+      "name": "Gelateria Carnevali",
+      "lat": 43.208258901029225,
+      "lng": 13.057053668820435,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
     },
     {
-      "name": "Ionic HQ",
-      "lat": 43.074395,
-      "lng": -89.381056
+      "name": "Cassero 2.0",
+      "lat": 43.20750943329837,
+      "lng": 13.056386381979054,
+      "center": true,
+      "icon": "assets/speakers/agos_pizza_avatar.png"
     },
     {
       "name": "Afterparty - Brocach Irish Pub",

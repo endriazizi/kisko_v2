@@ -34,7 +34,7 @@
               </ion-avatar>
               <ion-label>
                 <h2>{{speaker.name}}</h2>
-                <p>{{speaker.title}}</p>
+                <p>{{speaker.category}}</p>
               </ion-label>
             </ion-item>
           </ion-card-header>
@@ -57,7 +57,7 @@
                 routerLink="/app/tabs/speakers/speaker-details/{{speaker.id}}"
               >
                 <ion-label>
-                  <h3>About {{speaker.name}}</h3>
+                  <h3>{{speaker.name}}</h3>
                 </ion-label>
               </ion-item>
             </ion-list>

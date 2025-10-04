@@ -10,15 +10,14 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <!-- 🔹 Browser/PWA: mostra iframe -->
+  <!-- Browser/PWA: iframe con binding all’URL "sanitized" -->
   <iframe
     *ngIf="isBrowser"
-    src="https://ludwigstrasse.plateform.app/"
+    [src]="safeUrl"              
     style="width:100%; height:100%; border:none;"
   ></iframe>
 
-  <!-- 🔹 App mobile: testo mentre apre ThemeableBrowser -->
+  <!-- App mobile: testo mentre apre ThemeableBrowser -->
   <p *ngIf="!isBrowser">Caricamento Plateform...</p>
 </ion-content>

@@ -32,9 +32,10 @@ export class LocationService {
         // Set default locations if data cannot be loaded
         const defaultLocations = [{
           id: 1,
-          name: 'Monona Terrace Convention Center',
-          lat: 43.071584,
-          lng: -89.38012,
+          name: 'Piazza Dante Castelraimondo',
+          lat: 43.20751529831467, 
+          lng: 13.056397110815189,
+          icon: "",
           center: true
         }];
         this.locationsSubject.next(defaultLocations);

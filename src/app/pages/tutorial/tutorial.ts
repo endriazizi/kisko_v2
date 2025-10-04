@@ -1,7 +1,7 @@
 import {
   Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, inject
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import {
   IonButton,
@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
   selector: 'page-tutorial',
   templateUrl: 'tutorial.html',
   styleUrls: ['./tutorial.scss'],
-  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonContent, IonIcon, CommonModule],
+  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonContent, IonIcon, CommonModule, RouterLink],
 })
 export class TutorialPage implements OnInit, AfterViewInit, OnDestroy {
   // Servizi
@@ -221,4 +221,6 @@ export class TutorialPage implements OnInit, AfterViewInit, OnDestroy {
       .navigateByUrl('/app/tabs/schedule', { replaceUrl: true })
       .catch(err => console.error('Errore durante startApp:', err));
   }
+
+  
 }

@@ -433,7 +433,7 @@
     {
       "name": "Tabaccheria Cerqueti",
       "logo": "/assets/img/speakers/tabaccheria_cerqueti_banner.png",
-      "profilePic": "/assets/img/speakers/tabaccheria_cerqueti_banner.png",
+      "profilePic": "/assets/img/speakers/tabaccheria_cerqueti_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
       "about": "🚬 La Tabaccheria Cerqueti è presente nel nostro paese da ben tre generazioni, gestita con passione e dedizione prima da Rolando, poi da Brunella ed infine da me.\n\n📍 La mia attività è cresciuta negli anni nel centro di Castelraimondo, diventando un punto di riferimento per ogni esigenza quotidiana.\n\n📰 Da noi trovate non solo tabacchi, giochi e giornali, ma anche servizi utili e sempre aggiornati.\n\n🙏 Ringrazio ogni cliente che mi permette di lavorare con il sorriso. Insieme ai miei indispensabili collaboratori siamo pronti ad accogliervi e soddisfare ogni esigenza.\n\n❤️ GRAZIE!",
@@ -528,14 +528,7 @@
     }
   ],
   "map": [
-    {
-      "name": "Gelateria Carnevali",
-      "lat": 43.208258901029225,
-      "lng": 13.057053668820435,
-      "center": true,
-      "icon": "assets/icon/gelato.png"
-    },
-    {
+        {
       "name": "Cassero 2.0",
       "lat": 43.20750943329837,
       "lng": 13.056386381979054,
@@ -543,10 +536,85 @@
       "icon": "assets/speakers/agos_pizza_avatar.png"
     },
     {
-      "name": "Afterparty - Brocach Irish Pub",
-      "lat": 43.07336,
-      "lng": -89.38335
+      "name": "Gelateria Carnevali",
+      "lat": 43.208258901029225,
+      "lng": 13.057053668820435,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Ago's - Ristorante Pizzera",
+      "lat": 43.2135979488039,
+      "lng": 13.056150574360537,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Ristorante Nuovo Mondo",
+      "lat": 43.20807811012026,
+      "lng": 13.055913065880656,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Pizza El Pedro",
+      "lat": 43.20549770868139,
+      "lng": 13.055414176691704,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Bar L'eclissi",
+      "lat": 43.20738421252214,
+      "lng": 13.056011296569654,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Pizzera La Lanterna",
+      "lat": 43.207702291397084,
+      "lng": 13.056773081225085,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Gelateria Centrale",
+      "lat": 43.37351172474246,
+      "lng": 13.077083281020434,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        { 
+      "name": "CONAD CITY",
+      "lat": 43.39258357350975,
+      "lng": 13.076877149874912,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Ludwig",
+      "lat": 43.20822997528104,
+      "lng": 13.057122065054134,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
+    },
+
+        {
+      "name": "Tabaccheria Cerqueti",
+      "lat": 43.20794607059282,
+      "lng": 13.056678711914214,
+      "center": true,
+      "icon": "assets/icon/gelato.png"
     }
+
   ],
   "tracks": [
     {

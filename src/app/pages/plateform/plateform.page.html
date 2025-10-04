@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Plateform</ion-title>
-
     <ion-buttons slot="end">
       <ion-button color="danger" (click)="goBack()">
         <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
@@ -10,14 +9,37 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <!-- Browser/PWA: iframe con binding all’URL "sanitized" -->
-  <iframe
-    *ngIf="isBrowser"
-    [src]="safeUrl"              
-    style="width:100%; height:100%; border:none;"
-  ></iframe>
 
-  <!-- App mobile: testo mentre apre ThemeableBrowser -->
-  <p *ngIf="!isBrowser">Caricamento Plateform...</p>
+<ion-content>
+
+  <!-- WEB: preferisci iframe se possibile -->
+  <ng-container *ngIf="isBrowser; else deviceTpl">
+
+    <!-- 3A) Instagram POST embeddato -->
+    <div *ngIf="embedHtml" [innerHTML]="embedHtml" style="max-width: 540px; margin: 0 auto;"></div>
+
+    <!-- 3B) Sito iframabile -->
+    <iframe
+      *ngIf="!embedHtml && canIframe"
+      [src]="safeUrl"
+      style="width:100%; height:100%; border:none;"
+    ></iframe>
+
+    <!-- 3C) Non embeddabile (es. profilo Instagram): fallback dentro la pagina -->
+    <div *ngIf="!embedHtml && !canIframe" class="blocked-wrap" style="padding:16px;">
+      <p>Questo sito non consente l’incorporamento. Aprilo comunque senza uscire dall’app.</p>
+      <ion-button (click)="openExternal(url)">
+        <ion-icon slot="start" name="logo-instagram"></ion-icon>
+        Apri
+      </ion-button>
+    </div>
+
+    
+  </ng-container>
+
+  <!-- DEVICE: ThemeableBrowser già aperto in TS -->
+  <ng-template #deviceTpl>
+    <p>Caricamento Plateform...</p>
+  </ng-template>
+
 </ion-content>

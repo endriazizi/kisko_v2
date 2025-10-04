@@ -1,31 +1,29 @@
-.info-kiosk {
-text-align: center;
-background: #f4f4f4;
-padding: 20px 10px;
-font-size: 1.5rem;
-font-weight: 500;
-color: #222;
-}
+/* ====== I TUOI STILI ESISTENTI ====== */
 
+.info-kiosk {
+  text-align: center;
+  background: #f4f4f4;
+  padding: 20px 10px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #222;
+}
 
 .info-kiosk .clock {
-font-size: 2.5rem;
-font-weight: bold;
-margin-bottom: 10px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
-
 
 .info-kiosk .date {
-font-size: 1.3rem;
-margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
 }
-
 
 .info-kiosk .weather {
-font-size: 1.2rem;
-font-style: italic;
+  font-size: 1.2rem;
+  font-style: italic;
 }
-
 
 ion-toolbar {
   --background: transparent;
@@ -39,54 +37,103 @@ ion-content {
   display: grid;
   grid-template-columns: repeat(4, 100%);
   grid-template-rows: 1fr;
-
   height: 100%;
-
   overflow: scroll;
   scroll-snap-type: x mandatory;
 }
 
 .slide {
   display: flex;
-
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   width: 100%;
-
   text-align: center;
-
   scroll-snap-align: center;
   scroll-snap-stop: always;
 }
 
-.slide-title {
-  margin-top: 2.8rem;
-}
+.slide-title { margin-top: 2.8rem; }
 
 .slide-image {
   max-width: 80%;
   max-height: 50%;
-
   margin: -5vh 0 0;
   pointer-events: none;
 }
 
-b {
-  font-weight: 500;
-}
+b { font-weight: 500; }
 
 p {
   padding: 0 40px;
-
   color: var(--ion-color-step-600, #60646b);
-
   font-size: 14px;
-
   line-height: 1.5;
 
-  b {
-    color: var(--ion-text-color, #000000);
+  b { color: var(--ion-text-color, #000000); }
+}
+
+/* ====== AGGIUNTE PER LA SLIDE VIDEO ====== */
+
+/* Slide 2 con video: occupa il viewport; video/overlay visibili solo quando attiva */
+.slide-video {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+
+  &:not(.active) .hero-video,
+  &:not(.active) .video-cta,
+  &:not(.active) .video-chrome {
+    display: none;
   }
 }
+
+/* Video a schermo intero fissato al viewport (niente bande) */
+.hero-video {
+  position: fixed;
+  inset: 0;
+  width: 100dvw;
+  height: 100dvh;
+  object-fit: cover;
+  background: #000;
+  z-index: 0; /* dietro a overlay e contenuti */
+}
+
+/* Hamburger/top chrome nella slide video */
+.video-chrome {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 2; /* sopra al video */
+  pointer-events: auto;
+  /* leggero effetto per leggibilità su video chiari */
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
+}
+
+/* CTA in basso (bottone più in basso come richiesto) */
+.video-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 8dvh;           /* sposta più in alto/basso a piacere */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 2;             /* sopra al video */
+  text-shadow: 0 2px 8px rgba(0,0,0,.45);
+
+  .cta {
+    --border-radius: 16px;
+    padding-inline: 22px;
+  }
+}
+
+/* Assicura che info-kiosk e slide restino sopra al video quando serve */
+.info-kiosk,
+.slide-container {
+  position: relative;
+  z-index: 3;
+}
+
+/* Evita scroll verticale globale; restano solo le slide orizzontali */
+ion-content::part(scroll) { overflow: hidden; }

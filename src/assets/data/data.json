@@ -49,7 +49,7 @@
               "id": "2"
             },
             {
-              "name": "Festa della Castagna , a cura della Società Ope-raia di Mutuo Soccorso di Crispiero e della Libera Associazione Pro Crispiero",
+              "name": "Festa della Castagna , a cura della Società Operaia di Mutuo Soccorso di Crispiero e della Libera Associazione Pro Crispiero",
               "location": "Frazione di Crispiero",
               "description": "Mobile devices and browsers are now advanced enough that developers can build native-quality mobile apps using open web technologies like HTML5, Javascript, and CSS. In this talk, we’ll provide background on why and how we created Ionic, the design decisions made as we integrated Ionic with Angular, and the performance considerations for mobile platforms that our team had to overcome. We’ll also review new and upcoming Ionic features, and talk about the hidden powers and benefits of combining mobile app development and Angular.",
               "speakerNames": [
@@ -411,6 +411,7 @@
       "address": "Piazza Dante Alighieri, 5, 62022 Castelraimondo",
       "phone": "+39 0737 642131",
       "openingHours": "pranzo 12:00-15:30 - cena 12:00-22:30",
+      "sito": "https://www.instagram.com/barleclissi/",
       "id": "3"
     },
     {
@@ -426,7 +427,7 @@
       "email": "eva@example.com",
       "phone": "+39 0737 641155",
       "openingHours": "pranzo 12:00-15:30 - cena 12:00-22:30",
-      "sito": "https://www.gelateriacarnevali.com/",
+      "sito": "https://www.instagram.com/barleclissi",
       "id": "4"
     },
     {
@@ -499,8 +500,8 @@
       "profilePic": "/assets/img/speakers/conad_pizza_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
-"about": "🏬 Qualità, convenienza e territorio.\n\nSiamo il tuo supermercato di fiducia a Castelraimondo: ogni giorno selezioniamo prodotti freschi e di marca Conad, puntando su qualità e convenienza, con un’attenzione particolare ai prodotti del territorio.\n\n🛒 Offriamo anche la spesa a domicilio: portiamo noi la spesa fino a casa tua.\n\n---\n\n⏰ Orari\n\nLunedì–Sabato: 8:30–20:00\nDomenica: chiuso\n(Orari continuati per venire incontro a chi lavora.)\n\n---\n\n🛍️ Cosa trovi da noi\n\n• Reparti freschi e assortimento completo per la spesa di tutti i giorni.\n• Ampia scelta di prodotti a marchio Conad: qualità garantita a prezzi accessibili.\n• Prodotti locali per valorizzare i sapori del territorio.\n• Servizi comodi: consegna a domicilio, accesso senza barriere, pagamenti digitali (Carta Insieme, Conad Card, Conad Pay).\n\n---\n\n💡 Perché sceglierci\n\n• Qualità e prezzi ragionevoli, con promozioni ricorrenti.\n• Personale attento e disponibile, orientato al servizio.\n• Pulizia e ordine in negozio per una spesa rapida e piacevole.\n\n(Questi aspetti sono spesso evidenziati dagli articoli locali e dalle recensioni online sul punto vendita di Castelraimondo)\n\n---\n\n💬 Dicono di noi (dal web)\n\n«Prezzi ragionevoli, tanti prodotti di qualità e personale al servizio del cliente»",
-"title": "Software Engineer",
+      "about": "🏬 Qualità, convenienza e territorio.\n\nSiamo il tuo supermercato di fiducia a Castelraimondo: ogni giorno selezioniamo prodotti freschi e di marca Conad, puntando su qualità e convenienza, con un’attenzione particolare ai prodotti del territorio.\n\n🛒 Offriamo anche la spesa a domicilio: portiamo noi la spesa fino a casa tua.\n\n---\n\n⏰ Orari\n\nLunedì–Sabato: 8:30–20:00\nDomenica: chiuso\n(Orari continuati per venire incontro a chi lavora.)\n\n---\n\n🛍️ Cosa trovi da noi\n\n• Reparti freschi e assortimento completo per la spesa di tutti i giorni.\n• Ampia scelta di prodotti a marchio Conad: qualità garantita a prezzi accessibili.\n• Prodotti locali per valorizzare i sapori del territorio.\n• Servizi comodi: consegna a domicilio, accesso senza barriere, pagamenti digitali (Carta Insieme, Conad Card, Conad Pay).\n\n---\n\n💡 Perché sceglierci\n\n• Qualità e prezzi ragionevoli, con promozioni ricorrenti.\n• Personale attento e disponibile, orientato al servizio.\n• Pulizia e ordine in negozio per una spesa rapida e piacevole.\n\n(Questi aspetti sono spesso evidenziati dagli articoli locali e dalle recensioni online sul punto vendita di Castelraimondo)\n\n---\n\n💬 Dicono di noi (dal web)\n\n«Prezzi ragionevoli, tanti prodotti di qualità e personale al servizio del cliente»",
+      "title": "Software Engineer",
       "category": "Supermercato",
       "location": "Everywhere",
       "address": "Via Enrico Mattei, 57, 62022 Castelraimondo MC",
@@ -510,40 +511,20 @@
       "id": "10"
     },
     {
-      "name": "Paul Puppy",
-      "profilePic": "/assets/img/speakers/puppy.jpg",
+      "name": "Pizzera La Lanterna",
+      "logo": "/assets/img/speakers/lanterna_banner.png",
+      "profilePic": "/assets/img/speakers/lanterna_pizza_avatar.png",
       "instagram": "ionicframework",
       "twitter": "ionicframework",
-      "about": "Paul is a Puppy. Paul's interests include maps, whales, and dragons.",
+      "about": "🍕 La Lanterna, da oltre 16 anni, mette al primo posto la qualità e la soddisfazione dei propri clienti.\n\nLa Pizzeria Ristorante è gestita a conduzione familiare da Hajri Azizi, capofamiglia e titolare, insieme alla moglie Vera e ai figli Nadia ed Endri.\n\n🏠 Il locale è composto da una sala principale e da una caratteristica taverna con soffitto a volta, che regala un’atmosfera accogliente e conviviale, dove la regina del menù è la pizza.\n\n🔥 La pizza è preparata rigorosamente con forno a legna: sana, leggera, croccante, friabile e molto digeribile grazie alla lievitazione naturale con lievito madre e all'utilizzo di ingredienti freschi e genuini.\n\n🍝 Oltre alla pizza si possono gustare primi, secondi piatti e dolci della tradizione culinaria italiana.\n\n✨ Assaporare, ascoltare, riconoscere, apprezzare: l’arte della meditazione culinaria trova nel Ristorante Pizzeria La Lanterna uno dei suoi templi d’eccellenza. Qui il rito della pizza e della cucina sana è officiato ogni giorno nella splendida atmosfera interna e nelle accoglienti sale dalla famiglia Azizi.\n\n🤝 Punto d’incontro per un’élite locale e internazionale, La Lanterna offre il contesto ideale per una pizza, un pranzo, una cena o uno stuzzichino (aperitivo, happy hour, ecc.), accompagnato da un’accoglienza familiare e un servizio personalizzato.",
       "title": "Software Engineer",
+      "category": "Pizzeri Ristorante",
       "location": "Everywhere",
-      "email": "paul@example.com",
-      "phone": "+1-541-754-3010",
+      "address": "Largo della Libertà 4, 62022 Castelraimondo MC",
+      "email": "eva@example.com",
+      "phone": "+39 0737 642142",
+      "openingHours": "18:30 - 02:00",
       "id": "11"
-    },
-    {
-      "name": "Rachel Rabbit",
-      "profilePic": "/assets/img/speakers/rabbit.jpg",
-      "instagram": "ionicframework",
-      "twitter": "ionicframework",
-      "about": "Rachel is a Rabbit. Rachel's interests include clowns, skeletons, and yo-yos.",
-      "title": "Senior Software Engineer",
-      "location": "Everywhere",
-      "email": "rachel@example.com",
-      "phone": "+1-541-754-3010",
-      "id": "12"
-    },
-    {
-      "name": "Ted Turtle",
-      "profilePic": "/assets/img/speakers/turtle.jpg",
-      "instagram": "ionicframework",
-      "twitter": "ionicframework",
-      "about": "Ted is a Turtle. Ted's interests include butterflies, skiing, and cupcakes.",
-      "title": "Software Engineer",
-      "location": "Everywhere",
-      "email": "ted@example.com",
-      "phone": "+1-541-754-3010",
-      "id": "13"
     }
   ],
   "map": [

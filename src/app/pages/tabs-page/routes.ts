@@ -70,7 +70,42 @@ export const TABS_ROUTES: Routes = [
         loadComponent: () =>
           import('../plateform/plateform.page').then(m => m.PlateformPage),
       },
+  {
+    path: 'infiorata',
+    loadComponent: () =>
+      import('../infiorata/infiorata.page').then(m => m.InfiorataPage),
+  },
+    {
+    path: 'turismo',
+    loadComponent: () =>
+      import('../turismo/turismo.page').then(m => m.TurismoPage),
+  },
 
+  {
+    path: 'vivere-camerino',
+    loadComponent: () =>
+      import('../vivere-camerino/vivere-camerino.page')
+        .then(m => m.VivereCamerinoPage),
+  },
+   {
+    path: 'cronache-maceratesi',
+    loadComponent: () =>
+      import('../cronache-maceratesi/cronache-maceratesi.page')
+        .then(m => m.CronacheMaceratesiPage),
+  },
+     {
+    path: 'picchio-news',
+    loadComponent: () =>
+      import('../picchio-news/picchio-news.page')
+        .then(m => m.PicchioNewsPage),
+  },
+
+    {
+    path: 'comune-castelraimondo',
+    loadComponent: () =>
+      import('../comune-castelraimondo/comune-castelraimondo.page')
+        .then(m => m.ComuneCastelraimondoPage),
+  },
       
       {
         path: '',

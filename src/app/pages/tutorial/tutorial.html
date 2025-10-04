@@ -9,17 +9,17 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <!-- Barra superiore info -->
-<div class="info-kiosk">
-<div class="clock">🕒 {{ currentTime }}</div>
-<div class="date">📅 {{ currentDate }}</div>
-<div class="weather" *ngIf="weather">
-🌤️ {{ weather.name }} - {{ weather.weather[0].description }}
-({{ weather.main.temp }}°C)
-</div>
-</div>
+  <!-- Barra superiore info (invariata) -->
+  <div class="info-kiosk">
+    <div class="clock">🕒 {{ currentTime }}</div>
+    <div class="date">📅 {{ currentDate }}</div>
+    <div class="weather" *ngIf="weather">
+      🌤️ {{ weather.name }} - {{ weather.weather[0].description }} ({{ weather.main.temp }}°C)
+    </div>
+  </div>
 
   <div class="slide-container">
+    <!-- SLIDE 1: invariata -->
     <section class="slide">
       <img src="assets/img/ica-slidebox-img-1.png" class="slide-image" />
       <h2 class="slide-title">
@@ -31,5 +31,42 @@
       </p>
     </section>
 
-    <section class="slide">
-      <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
+    <!-- SLIDE 2: video full-screen + hamburger + CTA bassa -->
+    <section #videoSection class="slide slide-video" [class.active]="isVideoActive">
+      <!-- Video fissato al viewport: visibile solo quando la slide è attiva -->
+      <video
+        #slideVideo
+        class="hero-video"
+        autoplay
+        [muted]="muted"
+        playsinline
+        [attr.webkit-playsinline]="true"
+        poster="assets/img/poster.jpg">
+        <source src="assets/video/polveredistelle.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Chrome superiore: hamburger per side menu -->
+      <div class="video-chrome">
+        <ion-button fill="clear" size="large" (click)="toggleMenu()" aria-label="Apri menu">
+          <ion-icon [ios]="'menu-outline'" [md]="'menu-outline'"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- CTA in basso -->
+      <div class="video-cta">
+        <ion-button size="large" (click)="unmuteAndPlay()" *ngIf="showUnmuteBtn">
+          🔊 Audio ON
+        </ion-button>
+
+        <ion-button
+          class="cta"
+          size="large"
+          color="primary"
+          routerLink="/app/tabs/schedule"
+          routerDirection="root">
+          INIZIA ORA
+        </ion-button>
+      </div>
+    </section>
+  </div>
+</ion-content>

@@ -33,17 +33,24 @@ import {
   ToastController,
 } from "@ionic/angular/standalone";
 import {
+  arrowBackOutline,
   calendarOutline,
   hammer,
   help,
   informationCircleOutline,
   logIn,
+  logoInstagram,
   logOut,
   mapOutline,
   moonOutline,
   peopleOutline,
   person,
   personAdd,
+  informationCircle,
+  informationCircleSharp,
+  newspaper,
+  newspaperOutline,
+  newspaperSharp,
 } from "ionicons/icons";
 import { UserService } from "./providers/user.service";
 
@@ -82,7 +89,7 @@ export class AppComponent implements OnInit {
 
   appPages = [
     {
-      title: "Schedule",
+      title: "Eventi",
       url: "/app/tabs/schedule",
       icon: "calendar",
     },
@@ -101,15 +108,39 @@ export class AppComponent implements OnInit {
       url: "/app/tabs/about",
       icon: "information-circle",
     },
+    {
+      title: "Infiorata",
+      url: "/app/tabs/infiorata",
+      icon: "information-circle",
+    },
+    {
+      title: "Turismo",
+      url: "/app/tabs/turismo",
+      icon: "information-circle",
+    },
+    {
+      title: "Vivere Camerino",
+      url: "/app/tabs/vivere-camerino",
+      icon: "newspaper",
+    },
+    {
+      title: "Cronache Maceratesi",
+      url: "/app/tabs/cronache-maceratesi",
+      icon: "newspaper",
+    },
+    { title: "Picchio News", url: "/app/tabs/picchio-news", icon: "newspaper" },
+    //      {
+    //   title: 'Comune di Castelraimondo',
+    //   url: '/app/tabs/comune-castelraimondo',
+    //   icon: 'information-circle'
+    // },
   ];
   loggedIn = false;
   dark = false;
 
   private inactivityTimer: any;
   // private readonly TIMEOUT = 20000; // 20 secondi
-    private readonly TIMEOUT = 120000; // 20 secondi
-
-  
+  private readonly TIMEOUT = 120000; // 20 secondi
 
   constructor() {
     this.resetTimer(); // avvia il timer al bootstrap
@@ -125,6 +156,11 @@ export class AppComponent implements OnInit {
       personAdd,
       moonOutline,
       hammer,
+      logoInstagram,
+      informationCircle,
+      arrowBackOutline,
+      newspaper,
+      newspaperOutline,
     });
   }
 

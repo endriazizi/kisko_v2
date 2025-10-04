@@ -8,7 +8,7 @@ import {
   IonTabs,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { calendar, informationCircle, location, people } from 'ionicons/icons';
+import { calendar, informationCircle, newspaperOutline,location, people } from 'ionicons/icons';
 
 @Component({
     templateUrl: 'tabs-page.html',
@@ -23,6 +23,6 @@ import { calendar, informationCircle, location, people } from 'ionicons/icons';
 })
 export class TabsPage {
   constructor() {
-    addIcons({ calendar, people, location, informationCircle });
+    addIcons({ calendar, people, location, informationCircle, newspaperOutline });
   }
 }

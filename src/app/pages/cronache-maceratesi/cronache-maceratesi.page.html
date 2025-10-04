@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cronache Maceratesi</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="goBack()">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        Torna indietro
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <!-- Browser/PWA -->
+  <div *ngIf="isBrowser" style="height:100%;">
+    <!-- link utile se il sito blocca l’iframe -->
+    <!-- <div style="padding:8px;">
+      <ion-button size="small" fill="outline" [href]="url" target="_blank" rel="noopener">
+        Apri in nuova scheda
+      </ion-button>
+    </div> -->
+
+    <iframe
+      [src]="safeUrl"
+      style="width:100%;height:calc(100% - 48px);border:none;"
+      title="Cronache Maceratesi"
+    ></iframe>
+  </div>
+
+  <!-- App mobile -->
+  <p *ngIf="!isBrowser" style="padding:16px">
+    Caricamento Cronache Maceratesi...
+  </p>
+</ion-content>

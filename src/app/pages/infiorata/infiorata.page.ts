@@ -1,72 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
-import {
-  IonContent, IonHeader, IonToolbar, IonTitle,
-  IonButtons, IonButton, IonIcon,
-} from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
-declare var cordova: any;
+import {
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent
+} from '@ionic/angular/standalone';
+import { isPlatform, NavController } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+
+// opzionale: registrazione icone (se usi name="arrow-back-outline")
+import { addIcons } from 'ionicons';
+import { arrowBackOutline } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-infiorata',
   standalone: true,
+  selector: 'page-infiorata',
   templateUrl: './infiorata.page.html',
   styleUrls: ['./infiorata.page.scss'],
-  imports: [NgIf, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon],
+  imports: [
+    CommonModule,
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent
+  ],
 })
 export class InfiorataPage implements OnInit {
-  readonly url = 'https://infioratadicastelraimondo.it';
-  readonly whitelist = [
-    'https://infioratadicastelraimondo.it',
-    'https://www.infioratadicastelraimondo.it',
-    'http://localhost:8100'
-  ];
+  private sanitizer = inject(DomSanitizer);
+  private nav = inject(NavController);
+  private router = inject(Router);
 
-  isBrowser = false;
-  safeUrl: SafeResourceUrl | null = null;
-  private ref: any;
+  // URL del sito Infiorata (cambialo se diverso)
+  private readonly RAW_URL = 'https://www.infioratacastelraimondo.it';
 
-  constructor(private router: Router, private sanitizer: DomSanitizer) {}
+  isBrowser = true;                 // true = PWA/desktop browser, false = app ibrida
+  safeUrl!: SafeResourceUrl;        // URL sanitizzato per l'iframe
 
-  ngOnInit() {
-    if (!(window as any).cordova) {
-      this.isBrowser = true;
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-      return;
-    }
+  constructor() {
+    addIcons({ arrowBackOutline });
+    // considera "ibrido" se gira dentro Capacitor/Cordova
+    this.isBrowser = !(isPlatform('hybrid') || isPlatform('capacitor') || isPlatform('cordova'));
+  }
 
-    try {
-      this.ref = cordova?.ThemeableBrowser?.open(this.url, '_blank', {
-        toolbar: { height: 50, color: '#222222' },
-        closeButton: {
-          wwwImage: 'assets/icon/close.png',
-          align: 'left',
-          event: 'closePressed',
-        },
-      });
-
-      // chiudi con bottone
-      this.ref?.addEventListener?.('closePressed', () => this.ref?.close?.());
-
-      // blocca link esterni
-      this.ref?.addEventListener?.('loadstart', (event: any) => {
-        const url = event.url;
-        const allowed = this.whitelist.some(domain => url.startsWith(domain));
-        if (!allowed) {
-          console.warn('Blocked external URL:', url);
-          this.ref.stop();
-          this.ref.executeScript({ code: "alert('Navigazione non consentita');" });
-        }
-      });
-    } catch (e) {
-      window.open(this.url, '_system');
-    }
+  ngOnInit(): void {
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.RAW_URL);
   }
 
   goBack() {
-    this.ref?.close?.();
-    this.router.navigate(['/app/tabs/speakers']);
+    // torna indietro nello stack; se vuoi una rotta specifica, usa navigateRoot('/app/tabs/...').
+    this.nav.back();
   }
 }

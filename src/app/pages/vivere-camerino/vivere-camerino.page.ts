@@ -1,59 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
-import {
-  IonContent, IonHeader, IonToolbar, IonTitle,
-  IonButtons, IonButton, IonIcon,
-} from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
-declare var cordova: any;
+import {
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent
+} from '@ionic/angular/standalone';
+import { isPlatform, NavController } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+
+import { addIcons } from 'ionicons';
+import { arrowBackOutline } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-vivere-camerino',
   standalone: true,
+  selector: 'page-vivere-camerino',
   templateUrl: './vivere-camerino.page.html',
   styleUrls: ['./vivere-camerino.page.scss'],
   imports: [
-    NgIf, IonContent, IonHeader, IonToolbar, IonTitle,
-    IonButtons, IonButton, IonIcon,
+    CommonModule,
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonContent
   ],
 })
 export class VivereCamerinoPage implements OnInit {
-  readonly url = 'https://www.viverecamerino.it/';
-  isBrowser = false;
-  safeUrl: SafeResourceUrl | null = null;
-  private ref: any;
+  private sanitizer = inject(DomSanitizer);
+  private nav = inject(NavController);
+  private router = inject(Router);
 
-  constructor(private router: Router, private sanitizer: DomSanitizer) {}
+  // URL del sito Vivere Camerino
+  private readonly RAW_URL = 'https://www.viverecamerino.it';
 
-  ngOnInit() {
-    // Browser/PWA → iframe
-    if (!(window as any).cordova) {
-      this.isBrowser = true;
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-      return;
-    }
+  isBrowser = true;          // true = PWA/desktop browser, false = app ibrida
+  safeUrl!: SafeResourceUrl; // URL sanitizzato per l'iframe
 
-    // Device → ThemeableBrowser
-    try {
-      this.ref = cordova?.ThemeableBrowser?.open(this.url, '_blank', {
-        toolbar: { height: 50, color: '#222222' },
-        closeButton: {
-          wwwImage: 'assets/icon/close.png',
-          align: 'left',
-          event: 'closePressed',
-        },
-      });
-      this.ref?.addEventListener?.('closePressed', () => this.ref?.close?.());
-    } catch {
-      // Fallback: browser di sistema
-      window.open(this.url, '_system');
-    }
+  constructor() {
+    addIcons({ arrowBackOutline });
+    // considera "ibrido" se gira dentro Capacitor/Cordova
+    this.isBrowser = !(isPlatform('hybrid') || isPlatform('capacitor') || isPlatform('cordova'));
+  }
+
+  ngOnInit(): void {
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.RAW_URL);
   }
 
   goBack() {
-    try { this.ref?.close?.(); } catch {}
-    this.router.navigate(['/app/tabs/speakers']); // cambia destinazione se preferisci
+    // torna indietro nello stack (oppure usa navigateRoot('/app/tabs/...') se preferisci)
+    this.nav.back();
   }
 }

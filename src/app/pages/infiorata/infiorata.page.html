@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Infiorata</ion-title>
+    <ion-title>Infiorata di Castelraimondo</ion-title>
 
     <ion-buttons slot="end">
       <ion-button color="danger" (click)="goBack()">
@@ -11,16 +11,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <!-- Browser/PWA -->
+<ion-content fullscreen class="infiorata-page">
+  <!-- Browser/PWA: iframe con URL “sanitized” e SANDBOX per bloccare uscite -->
   <iframe
     *ngIf="isBrowser"
+    class="ext-frame"
     [src]="safeUrl"
-    style="width:100%; height:100%; border:none;"
-    title="Infiorata"
-    sandbox="allow-scripts allow-same-origin"
+    sandbox="allow-scripts allow-same-origin allow-forms"
+    referrerpolicy="no-referrer"
+    allow="geolocation 'none'; microphone 'none'; camera 'none'; payment 'none'"
+    title="Sito Infiorata"
   ></iframe>
 
-  <!-- Mobile fallback -->
-  <p *ngIf="!isBrowser" style="padding:16px">Caricamento Infiorata...</p>
+  <!-- App mobile: qui potresti aprire un in-app browser/ThemeableBrowser -->
+  <p *ngIf="!isBrowser" class="loading-msg">
+    Caricamento Infiorata...
+  </p>
 </ion-content>

@@ -11,25 +11,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <!-- Browser/PWA -->
-  <div *ngIf="isBrowser" style="height:100%;">
-    <!-- link utile se il sito blocca l’iframe -->
-    <!-- <div style="padding:8px;">
-      <ion-button size="small" fill="outline" [href]="url" target="_blank" rel="noopener">
-        Apri in nuova scheda
-      </ion-button>
-    </div> -->
+<ion-content fullscreen class="cm-page">
+  <!-- Browser/PWA: iframe SANDBOX per bloccare uscite (popup/top-navigation) -->
+  <iframe
+    *ngIf="isBrowser"
+    class="ext-frame"
+    [src]="safeUrl"
+    sandbox="allow-scripts allow-same-origin allow-forms"
+    referrerpolicy="no-referrer"
+    allow="geolocation 'none'; microphone 'none'; camera 'none'; payment 'none'"
+    title="Cronache Maceratesi"
+  ></iframe>
 
-    <iframe
-      [src]="safeUrl"
-      style="width:100%;height:calc(100% - 48px);border:none;"
-      title="Cronache Maceratesi"
-    ></iframe>
-  </div>
-
-  <!-- App mobile -->
-  <p *ngIf="!isBrowser" style="padding:16px">
+  <!-- App mobile: placeholder/loader; qui potresti aprire un in-app browser se vuoi -->
+  <p *ngIf="!isBrowser" class="loading-msg">
     Caricamento Cronache Maceratesi...
   </p>
 </ion-content>

@@ -361,7 +361,7 @@
   ],
   "speakers": [
     {
-      "name": "Ago's - Ristorante Pizzera",
+      "name": "Ago's - Ristorante Pizzeria",
       "logo": "/assets/img/speakers/agos_banner.png",
       "profilePic": "/assets/img/speakers/agos_pizza_avatar.png",
       "instagram": "ionicframework",
@@ -411,7 +411,7 @@
       "address": "Piazza Dante Alighieri, 5, 62022 Castelraimondo",
       "phone": "+39 0737 642131",
       "openingHours": "pranzo 12:00-15:30 - cena 12:00-22:30",
-      "sito": "https://www.instagram.com/barleclissi/",
+      "sito": "",
       "id": "3"
     },
     {
@@ -427,7 +427,7 @@
       "email": "eva@example.com",
       "phone": "+39 0737 641155",
       "openingHours": "pranzo 12:00-15:30 - cena 12:00-22:30",
-      "sito": "https://www.instagram.com/barleclissi",
+      "sito": "https://www.gelateriacarnevali.com",
       "id": "4"
     },
     {

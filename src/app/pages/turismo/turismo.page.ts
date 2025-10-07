@@ -31,7 +31,13 @@ declare var cordova: any;
   ],
 })
 export class TurismoPage implements OnInit {
-  readonly url = 'https://castelraimondoturismo.it/';
+  readonly url = 'https://castelraimondoturismo.it';
+  readonly whitelist = [
+    'https://castelraimondoturismo.it',
+    'https://www.castelraimondoturismo.it',
+    'http://localhost:8100'
+  ];
+
   isBrowser = false;
   safeUrl: SafeResourceUrl | null = null;
   private ref: any;
@@ -39,37 +45,49 @@ export class TurismoPage implements OnInit {
   constructor(private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
-    // Browser/PWA → usa iframe
+    // Browser/PWA → iframe con URL "sanitized"
     if (!(window as any).cordova) {
       this.isBrowser = true;
       this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
       return;
     }
 
-    // App (Cordova/Capacitor) → ThemeableBrowser
+    // Device (Cordova/Capacitor) → ThemeableBrowser con filtro whitelist
     try {
-      this.ref = cordova?.ThemeableBrowser?.open(this.url, '_blank', {
-        toolbar: { height: 50, color: '#222222' },
-        closeButton: {
-          wwwImage: 'assets/icon/close.png',
-          align: 'left',
-          event: 'closePressed',
-        },
-      });
+      this.ref = cordova?.ThemeableBrowser?.open(
+        this.url,
+        '_blank',
+        {
+          toolbar: { height: 50, color: '#222222' },
+          closeButton: {
+            wwwImage: 'assets/icon/close.png',
+            align: 'left',
+            event: 'closePressed',
+          },
+        }
+      );
 
-      this.ref?.addEventListener?.('closePressed', () => {
-        this.ref?.close?.();
+      // Chiusura con bottone
+      this.ref?.addEventListener?.('closePressed', () => this.ref?.close?.());
+
+      // Controllo link (whitelist)
+      this.ref?.addEventListener?.('loadstart', (event: any) => {
+        const url = event.url;
+        const allowed = this.whitelist.some(domain => url.startsWith(domain));
+        if (!allowed) {
+          console.warn('Blocked external URL:', url);
+          this.ref.stop();
+          this.ref.executeScript({ code: "alert('Navigazione non consentita');" });
+        }
       });
     } catch (e) {
-      // Fallback: apre nel browser di sistema
+      // Fallback: se ThemeableBrowser non è disponibile
       window.open(this.url, '_system');
     }
   }
 
   goBack() {
-    if (this.ref) {
-      try { this.ref.close(); } catch {}
-    }
-    this.router.navigate(['/app/tabs/speakers']); // adegua se vuoi un’altra destinazione
+    this.ref?.close?.();
+    this.router.navigate(['/app/tabs/speakers']);
   }
 }

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Infiorata di Castelraimondo</ion-title>
+    <ion-title>Infiorata</ion-title>
 
     <ion-buttons slot="end">
       <ion-button color="danger" (click)="goBack()">
@@ -16,12 +16,11 @@
   <iframe
     *ngIf="isBrowser"
     [src]="safeUrl"
-    style="width:100%;height:100%;border:none;"
-    title="Infiorata di Castelraimondo"
+    style="width:100%; height:100%; border:none;"
+    title="Infiorata"
+    sandbox="allow-scripts allow-same-origin"
   ></iframe>
 
-  <!-- App mobile -->
-  <p *ngIf="!isBrowser" style="padding:16px">
-    Caricamento Infiorata...
-  </p>
+  <!-- Mobile fallback -->
+  <p *ngIf="!isBrowser" style="padding:16px">Caricamento Infiorata...</p>
 </ion-content>

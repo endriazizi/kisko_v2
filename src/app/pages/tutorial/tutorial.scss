@@ -3,7 +3,7 @@
    ========================= */
 :root{
   --pbc-footer-h: 56px;   /* altezza footer PBC */
-  --cta-video-lift: 1px;  /* ↓ più piccolo = bottoni più vicini al footer */
+  --cta-video-lift: 0px;  /* ↓ più piccolo = bottoni più vicini al footer */
   --cta-gap: 14px;        /* spazio tra Audio ON e INIZIA ORA */
 }
 
@@ -230,7 +230,7 @@ ion-toolbar{ --background:transparent; }
 
 /* schermi bassi: piccoli aggiustamenti */
 @media (max-height:640px){
-  :root{ --cta-video-lift: 6px; }
+  :root{ --cta-video-lift: 0px; }
   .slide-text{ padding:0 12px; }
 }
 
@@ -313,4 +313,73 @@ ion-toolbar{ --background:transparent; }
 /* (opzionale) se il footer lo copre, alzalo un filo */
 .toast-green::part(container) {
   margin-bottom: 8px;
+}
+
+
+/* ==== Nascondi le scrollbar ma mantieni lo swipe ==== */
+
+/* IonContent: niente barra verticale visibile */
+ion-content.kiosk {
+  /* non mettere overflow:hidden qui, altrimenti blocchi lo swipe! */
+}
+ion-content.kiosk::-webkit-scrollbar { display: none !important; }
+ion-content.kiosk { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+
+/* Container delle slide (orizzontale) */
+.slide-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  /* nascondi le barre */
+  scrollbar-width: none;    /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.slide-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;  /* nasconde anche la barra orizzontale */
+  background: transparent;
+}
+
+/* Track del carosello A3 (prima slide) */
+.ads-track {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  /* nascondi le barre */
+  scrollbar-width: none;    
+  -ms-overflow-style: none; 
+  overscroll-behavior: contain; /* non trascinare il container esterno */
+}
+.ads-track::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+
+/* Toolbar host */
+.toolbar-logo {
+  --background: transparent;
+  --min-height: 72px;      /* set the toolbar height you want */
+  position: relative;
+}
+
+/* Container that takes the whole toolbar area */
+.toolbar-container {
+  position: absolute;
+  inset: 0;                /* fill the toolbar */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers the image */
+  pointer-events: none;    /* don't block clicks on the Skip button */
+}
+
+/* Image scales to fit the container, no cropping, no distortion */
+.toolbar-container img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain;     /* keeps aspect ratio and shows it fully */
 }

@@ -1,15 +1,13 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar class="toolbar-logo">
-    <!-- Logo centrato -->
-    <div class="toolbar-center">
-      <img src="assets/img/logo_comune.png" alt="Comune di Castelraimondo" />
-    </div>
+<ion-toolbar class="toolbar-logo">
+  <div class="toolbar-container">
+    <img src="assets/img/logo_comune.png" alt="Comune di Castelraimondo" />
+  </div>
 
-    <!-- Pulsante Skip -->
-    <ion-buttons slot="end">
-      <ion-button color="primary" (click)="startApp()" [hidden]="!showSkip">Skip</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+  <ion-buttons slot="end">
+    <ion-button color="primary" (click)="startApp()" [hidden]="!showSkip">Skip</ion-button>
+  </ion-buttons>
+</ion-toolbar>
 </ion-header>
 
 <!-- NB: #pageContent serve al fix offsetHeight (gestito nel TS) -->

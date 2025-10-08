@@ -1,248 +1,316 @@
 /* =========================
-   VARIABILI
+   VARIABILI REGOLABILI
    ========================= */
 :root{
-  --pbc-footer-h: 56px;      /* altezza footer fisso */
-  --cta-video-lift: 4px;     /* ↓ più piccolo = CTA più vicina al footer */
-  --cta-gap: 12px;           /* spazio tra Audio ON e INIZIA ORA */
+  --pbc-footer-h: 56px;   /* altezza footer PBC */
+  --cta-video-lift: 1px;  /* ↓ più piccolo = bottoni più vicini al footer */
+  --cta-gap: 14px;        /* spazio tra Audio ON e INIZIA ORA */
 }
 
 /* =========================
-   HEADER (logo centrato) + FIX offset
+   HEADER logo centrato
    ========================= */
-ion-header,
-ion-toolbar.toolbar-logo{
-  --background: transparent;
-  --min-height: 44px;
-  min-height: 44px;
-  height: 44px;
+.toolbar-logo {
+  position: relative;
 }
-ion-toolbar.toolbar-logo{ position: relative; }
-.toolbar-center{
+.toolbar-center {
   position: absolute;
-  left: 50%; top: 50%;
+  left: 50%;
+  top: 50%;
   transform: translate(-50%,-50%);
   pointer-events: none;
-  display: flex; align-items: center;
 }
-.toolbar-center img{ height: clamp(22px, 4.5vh, 30px); width: auto; }
-
-ion-content.kiosk{
-  --offset-top: 44px !important;  /* elimina “buco” tra header e content */
-  --overflow: hidden;             /* no scroll verticale globale */
+.toolbar-center img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
 }
 
 /* =========================
-   LAYOUT
+   LAYOUT KIOSK
    ========================= */
+.kiosk{ --overflow:hidden; } /* no scroll verticale globale */
 .viewport{
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr; /* info | slides */
 }
 
-/* Info box */
+/* =========================
+   INFO KIOSK
+   ========================= */
 .info-kiosk{
-  text-align: center;
-  background: #f4f4f4;
-  padding: clamp(12px,2vh,24px) 10px;
-  color: #222; font-weight: 600;
-  border-radius: 8px;
-  margin: 4px 12px 8px;
+  text-align:center;
+  background:#f4f4f4;
+  padding:clamp(12px,2vh,24px) 10px;
+  color:#222; font-weight:600;
+  border-radius:8px; margin:8px 12px;
 }
-.info-kiosk .clock{ font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; margin-bottom: 6px; }
-.info-kiosk .date{  font-size: clamp(1.1rem, 2.2vw, 1.6rem); margin-bottom: 6px; }
-.info-kiosk .weather{ font-size: clamp(1rem, 2vw, 1.4rem); font-style: italic; }
+.info-kiosk .clock{ font-size:clamp(2rem,4.5vw,3rem); font-weight:800; margin-bottom:6px; }
+.info-kiosk .date{  font-size:clamp(1.1rem,2.2vw,1.6rem); margin-bottom:6px; }
+.info-kiosk .weather{ font-size:clamp(1rem,2vw,1.4rem); font-style:italic; }
 
-/* Footer con due loghi */
+ion-toolbar{ --background:transparent; }
+
+/* =========================
+   FOOTER PBC SEMPRE VISIBILE
+   ========================= */
 .pbc-footer{
-  --background: transparent; --border-color: transparent;
-  min-height: var(--pbc-footer-h);
-  z-index: 1000;
+  --background:transparent;
+  --border-color:transparent;
+  min-height:var(--pbc-footer-h);
+  z-index:1000;
 }
 .pbc-footer .pbc-wrap{
-  width: 100%; display: flex; justify-content: center; align-items: center;
-  gap: 12px; padding: 6px 0;
+  width:100%;
+  display:flex; justify-content:center; align-items:center;
+  gap:18px; /* padding tra i due loghi */
+  padding:6px 0 8px;
 }
 .pbc-footer .brand-logo{
-  height: clamp(22px, 4vh, 36px); width: auto; opacity: .95;
-  filter: drop-shadow(0 3px 10px rgba(0,0,0,.25));
-  user-select: none; -webkit-user-drag: none;
+  height:clamp(22px,4vh,36px);
+  width:auto; opacity:.95;
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,.25));
 }
 
 /* =========================
-   SLIDES (orizzontali)
+   SLIDES (solo swipe orizzontale)
    ========================= */
 .slide-container{
-  height: 100%;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
+  height:100%;
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:100%;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-x;
 }
 .slide{
-  position: relative; height: 100%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  scroll-snap-align: center; scroll-snap-stop: always;
-  padding: 8px 12px; gap: 12px; text-align: center;
+  position:relative; height:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  scroll-snap-align:center; scroll-snap-stop:always;
+  padding:8px 12px; gap:12px; text-align:center;
 }
 
 /* =========================
-   SLIDE 1: CAROSELLO SCROLLABILE
+   SLIDE 1: CAROSELLO A3
    ========================= */
-.slide-ads{ gap: 10px; }
-
+.slide-ads{ gap:10px; }
 .ads-carousel{
-  position: relative;
-  width: min(96%, 900px);
-  height: min(100%, 70vh);
-  margin: 0 auto;
-  display: grid; place-items: center;
+  position:relative;
+  width:min(96%, 980px);
+  height:min(70vh, 680px);
+  margin:0 auto;
+  display:grid; place-items:center;
 }
-
 .ads-track{
-  width: 100%; height: 100%;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  overflow-x: auto; overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
-  overscroll-behavior: contain;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.18);
-  background: #fff;
+  width:100%; height:100%;
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:100%;
+  overflow:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  gap:0;
 }
-.ads-track::-webkit-scrollbar{ display: none; }
-.ads-track{ scrollbar-width: none; }
-
 .ads-item{
-  display: grid; place-items: center;
-  scroll-snap-align: center; scroll-snap-stop: always;
+  width:100%; height:100%;
+  display:grid; place-items:center;
+  scroll-snap-align:center;
+  padding:8px;
 }
 .ads-item img{
-  width: 100%; height: 100%; object-fit: contain;
-  user-select: none; -webkit-user-drag: none; pointer-events: none;
+  width:100%; height:100%;
+  object-fit:contain;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  user-select:none; -webkit-user-drag:none;
+  cursor:pointer;
 }
-
-/* indicatori */
 .ads-dots{
-  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px;
+  position:absolute;
+  bottom:12px;
+  left:50%; transform:translateX(-50%);
+  display:flex; gap:6px;
 }
 .ads-dots .dot{
-  width: 9px; height: 9px; border-radius: 999px;
-  background: rgba(255,255,255,.45);
-  outline: 1px solid rgba(0,0,0,.25);
-  cursor: pointer;
+  width:9px; height:9px; border-radius:999px;
+  background:rgba(255,255,255,.45); outline:1px solid rgba(0,0,0,.25);
 }
-.ads-dots .dot.active{ background: rgba(255,255,255,.95); }
+.ads-dots .dot.active{ background:rgba(255,255,255,.95); }
 
 /* =========================
-   SLIDE 2: CARD + TESTO GIUSTIFICATO
+   SLIDE 2: LOGO + TESTO + LOGHI (card)
    ========================= */
-.slide-info{ padding: 0 12px; }
-
+.slide-info{
+  align-items:stretch;
+}
 .info-card{
-  width: min(96%, 900px);
-  margin: 0 auto;
-  background: var(--ion-background-color, #fff);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.18);
-  padding: clamp(12px, 2.5vh, 22px) clamp(16px, 3.2vw, 28px);
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  overflow: hidden;
+  width:min(96%, 980px);
+  margin:0 auto;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+  padding:18px 16px 16px;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
 }
-.info-card .slide-image{ max-height: 22vh; margin: 6px auto 0; object-fit: contain; }
-.info-card .slide-title{ margin: 8px 0 4px; }
+.slide-image{
+  max-width:80%; max-height:20vh; margin:6px 0 0; pointer-events:none;
+}
+.slide-title{ margin:8px 0 0; }
+.slide-title.tight{ margin-top:8px; }
 
-/* ✅ Testo giustificato */
-.info-card .slide-text{
-  padding: 0;
-  max-width: 68ch;
-  text-align: justify;
-  text-justify: inter-word;
-  hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto;
+/* testo giustificato */
+.slide-text{
+  padding:0 18px;
+  color:var(--ion-color-step-600,#60646b);
+  font-size:15px;
+  line-height:1.55;
+  text-align:justify;
 }
+.slide-text b{ color:var(--ion-text-color,#000); }
 
-/* Loghi enti */
-.info-card .partners-logos{
-  width: 100%; display: flex; justify-content: center;
-  margin-top: 8px; padding-top: 6px;
-  border-top: 1px solid color-mix(in oklab, currentColor 12%, transparent);
+.partners-logos{
+  margin-top:8px;
+  width:100%;
+  display:grid;
+  place-items:center;
 }
-.info-card .partners-logos img{
-  width: clamp(220px, 70vw, 620px);
-  max-width: 92%;
-  height: auto; object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.12));
-  user-select: none; -webkit-user-drag: none;
+.partners-logos img{
+  width:min(92%, 760px);
+  height:auto;
+  object-fit:contain;
 }
 
 /* =========================
-   SLIDE 3: VIDEO + CTA in basso
+   SLIDE 3: VIDEO (no crop) + CTA in basso
    ========================= */
 .slide-video{
-  position: relative;
-  overflow: hidden;
-  display: grid; place-items: center;  /* centra solo il video */
-  height: 100%;
+  position:relative; /* per ancorare CTA/chrome dentro la slide */
+  overflow:hidden;
+  display:grid; place-items:center;
 }
 .hero-video{
-  width: 100%; height: 100%;
-  object-fit: contain; object-position: center; background: #000; z-index: 0;
+  position:relative;
+  width:100%; height:100%;
+  max-width:100%; max-height:100%;
+  object-fit:contain; object-position:center;
+  background:#000; z-index:0;
 }
 
-/* hamburger in alto a sinistra */
+/* overlay */
+.video-chrome, .video-cta{ position:absolute; z-index:3; }
 .video-chrome{
-  position: absolute; top: max(10px, env(safe-area-inset-top)); left: 10px;
-  z-index: 3; filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
+  top:max(10px, env(safe-area-inset-top));
+  left:10px;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));
 }
 
-/* CTA in basso alla slide (ancorati al bottom) */
+/* 🔊 / INIZIA ORA: appena sopra il footer + safe-area */
 .video-cta{
-  position: absolute;
-  left: 50%; transform: translateX(-50%);
-  bottom: calc(var(--pbc-footer-h) + max(8px, env(safe-area-inset-bottom)) + var(--cta-video-lift));
-  display: flex; flex-direction: column; gap: var(--cta-gap);
-  z-index: 3; text-shadow: 0 2px 8px rgba(0,0,0,.45);
-}
-.video-cta .cta{ --border-radius: 16px; padding-inline: 22px; }
+  left:50%;
+  bottom:calc(
+    var(--pbc-footer-h) +
+    max(8px, env(safe-area-inset-bottom)) +
+    var(--cta-video-lift)
+  );
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; gap:var(--cta-gap);
+  text-shadow:0 2px 8px rgba(0,0,0,.45);
 
-/* Nascondi elementi quando la slide non è attiva */
+  .cta{ --border-radius:16px; padding-inline:22px; }
+}
+
+/* nascondi UI quando la slide video non è attiva */
 .slide-video:not(.active) .hero-video,
 .slide-video:not(.active) .video-cta,
-.slide-video:not(.active) .video-chrome{ display: none !important; }
+.slide-video:not(.active) .video-chrome{ display:none; }
+
+/* schermi bassi: piccoli aggiustamenti */
+@media (max-height:640px){
+  :root{ --cta-video-lift: 6px; }
+  .slide-text{ padding:0 12px; }
+}
 
 /* =========================
-   MODAL
+   MODAL IMMAGINE FULL-SCREEN
    ========================= */
-.image-modal::part(content){ --height:100%; --width:100%; --border-radius:0; background:#000; }
-.image-modal .image-modal-wrapper{ width:100vw; height:100vh; display:grid; place-items:center; background:#000; }
+.image-modal::part(content){
+  --height:100%; --width:100%; --border-radius:0; background:#000;
+}
+.image-modal .image-modal-wrapper{
+  width:100vw; height:100vh; display:grid; place-items:center; background:#000;
+}
 .image-modal img{ width:100%; height:100%; object-fit:contain; }
 
-/* Fine tuning iPhone 14 Pro Max (portrait) */
+/* =========================
+   MODAL ASSISTENZA / WHATSAPP
+   ========================= */
+.support-modal::part(content) {
+  --height: auto;
+  --width: min(92vw, 420px);
+  --border-radius: 14px;
+  padding: 16px;
+}
+.support-modal-wrap {
+  display: grid;
+  gap: 12px;
+  text-align: center;
+}
+.support-modal-wrap h3 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.support-qr {
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.15);
+  background: #fff;
+}
+.support-note {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+.support-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* =========================
+   OVERRIDE IPHONE 14 PRO MAX (430×932, portrait)
+   ========================= */
 @supports (padding: max(0px)){
   @media (device-width:430px) and (device-height:932px) and (orientation:portrait){
-    :root{ --cta-video-lift: 2px; --cta-gap: 10px; }
+    :root{
+      --cta-video-lift: 1px;  /* vicino al footer come richiesto */
+      --cta-gap: 10px;
+    }
   }
 }
 
-/* =========================================================================
-   OVERRIDE FINALE: forza i CTA del video in basso (anti-centratura grid)
-   ========================================================================= */
-section.slide.slide-video{ position: relative !important; }
-section.slide.slide-video > .video-cta{
-  position: absolute !important;
-  left: 50% !important; transform: translateX(-50%) !important;
-  top: auto !important;
-  bottom: calc(var(--pbc-footer-h, 56px) + max(8px, env(safe-area-inset-bottom, 0px)) + var(--cta-video-lift, 4px)) !important;
-  display: flex !important; flex-direction: column !important;
-  gap: var(--cta-gap, 12px) !important;
-  z-index: 3 !important;
+
+/* Toast verde */
+.toast-green::part(container) {
+  --background: #22c55e;  /* verde */
+  --color: #ffffff;       /* testo bianco */
+  border-radius: 12px;
+}
+
+/* (opzionale) colore dei bottoni dentro il toast */
+.toast-green::part(button) {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* (opzionale) se il footer lo copre, alzalo un filo */
+.toast-green::part(container) {
+  margin-bottom: 8px;
 }

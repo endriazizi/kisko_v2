@@ -1,8 +1,6 @@
-
 import {
   AfterViewInit,
   Component,
-  DOCUMENT,
   DestroyRef,
   ElementRef,
   ViewChild,
@@ -50,22 +48,23 @@ import { LocationService } from '../../providers/location.service';
   standalone: true,
 })
 export class MapPage implements AfterViewInit {
-  private doc = inject(DOCUMENT);
   private locationService = inject(LocationService);
   private destroyRef = inject(DestroyRef);
+
   private map: L.Map | null = null;
   private markers: L.Marker[] = [];
 
-  @ViewChild('mapCanvas', { static: true }) mapElement!: ElementRef;
+  @ViewChild('mapCanvas', { static: true }) mapElement!: ElementRef<HTMLDivElement>;
 
   ngAfterViewInit() {
+    // Carica inizialmente le locations e crea la mappa
     this.locationService.loadLocations()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.initializeMap();
       });
 
-    // Subscribe to location changes
+    // Re-inizializza se cambia l’elenco locations
     this.locationService.getLocations()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
@@ -74,39 +73,36 @@ export class MapPage implements AfterViewInit {
         }
       });
 
-    // Clean up map on destroy
+    // Cleanup
     this.destroyRef.onDestroy(() => {
-      if (this.map) {
-        this.map.remove();
-      }
+      if (this.map) this.map.remove();
     });
   }
 
   private async initializeMap() {
     const mapEle = this.mapElement.nativeElement;
 
-    // Remove existing map if it exists
+    // Pulisci eventuale mappa precedente
     if (this.map) {
       this.map.remove();
-      this.markers.forEach(marker => marker.remove());
+      this.markers.forEach(m => m.remove());
       this.markers = [];
     }
 
     try {
-      // Get center location
+      // Centro mappa
       const centerLocation = await firstValueFrom(this.locationService.getCenterLocation());
-      if (!centerLocation) {
-        return;
-      }
+      if (!centerLocation) return;
 
-      // Initialize map
+      // 👇 Disattivo il controllo di attribuzione di default (niente link "Leaflet")
       this.map = L.map(mapEle, {
         center: [centerLocation.lat, centerLocation.lng],
         zoom: 16,
-        preferCanvas: true
+        preferCanvas: true,
+        attributionControl: false,   // <<< fondamentale
       });
 
-      // Configure default marker icon with shadow
+      // Icone default marker
       L.Marker.prototype.options.icon = L.icon({
         iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
         iconSize: [25, 41],
@@ -117,32 +113,37 @@ export class MapPage implements AfterViewInit {
         shadowAnchor: [12, 41]
       });
 
-      // Add tile layer
+      // Tile layer (attribution testuale, non link)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // puoi tenere l’attribution anche qui (non sarà un link)
         attribution: '© OpenStreetMap contributors'
       }).addTo(this.map);
 
-      // Add markers for all locations
+      // 👇 Attribution control CUSTOM senza prefix/link "Leaflet"
+      L.control.attribution({
+        position: 'bottomright',
+        prefix: false, // <<< NO "Leaflet"
+      })
+      .addAttribution('© OpenStreetMap contributors') // testo liscio
+      .addTo(this.map);
+
+      // Markers
       const locations = await firstValueFrom(this.locationService.getLocations());
-      if (this.map && locations) {
+      if (this.map && locations?.length) {
         locations.forEach((location: Location) => {
           const marker = L.marker([location.lat, location.lng])
             .addTo(this.map as L.Map)
-            .bindPopup(`${location.name}`, {
-              className: 'location-popup'
-            });
+            .bindPopup(`${location.name}`, { className: 'location-popup' });
           this.markers.push(marker);
         });
       }
 
       mapEle.classList.add('show-map');
 
-      // Force a resize after a short delay to ensure proper rendering
-      setTimeout(() => {
-        this.map?.invalidateSize();
-      }, 100);
-    } catch (error) {
-      console.error('Error initializing map:', error);
+      // Fix rendering
+      setTimeout(() => this.map?.invalidateSize(), 100);
+    } catch (err) {
+      console.error('Error initializing map:', err);
     }
   }
 }

@@ -11,35 +11,47 @@
 </ion-header>
 
 <ion-content>
-
   <!-- WEB: preferisci iframe se possibile -->
   <ng-container *ngIf="isBrowser; else deviceTpl">
+    <!-- ELFSIGHT WIDGET: Bar L'eclissi -->
+    @if (canIframeFeed) {
+
+    <div class="ion-padding">
+      <!-- your Elfsight embed goes here -->
+      <div
+        class="elfsight-app-fe37c329-97cf-45a9-acba-b156affa6f1d"
+        data-elfsight-app-lazy
+      ></div>
+      <div class="elfsight-app-xxx"></div>
+    </div>
+    }
 
     <!-- 3A) Instagram POST embeddato -->
-    <div *ngIf="embedHtml" [innerHTML]="embedHtml" style="max-width: 540px; margin: 0 auto;"></div>
+    <div
+      *ngIf="embedHtml"
+      [innerHTML]="embedHtml"
+      style="max-width: 540px; margin: 0 auto"
+    ></div>
 
     <!-- 3B) Sito iframabile -->
-    <iframe
+    <!-- <iframe
       *ngIf="!embedHtml && canIframe"
       [src]="safeUrl"
       style="width:100%; height:100%; border:none;"
-    ></iframe>
+    ></iframe> -->
 
     <!-- 3C) Non embeddabile (es. profilo Instagram): fallback dentro la pagina -->
-    <div *ngIf="!embedHtml && !canIframe" class="blocked-wrap" style="padding:16px;">
+    <!-- <div *ngIf="!embedHtml && !canIframe" class="blocked-wrap" style="padding:16px;">
       <p>Questo sito non consente l’incorporamento. Aprilo comunque senza uscire dall’app.</p>
       <ion-button (click)="openExternal(url)">
         <ion-icon slot="start" name="logo-instagram"></ion-icon>
         Apri
       </ion-button>
-    </div>
-
-    
+    </div> -->
   </ng-container>
 
   <!-- DEVICE: ThemeableBrowser già aperto in TS -->
   <ng-template #deviceTpl>
     <p>Caricamento Plateform...</p>
   </ng-template>
-
 </ion-content>

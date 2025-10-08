@@ -1,139 +1,248 @@
-/* ====== I TUOI STILI ESISTENTI ====== */
+/* =========================
+   VARIABILI
+   ========================= */
+:root{
+  --pbc-footer-h: 56px;      /* altezza footer fisso */
+  --cta-video-lift: 4px;     /* ↓ più piccolo = CTA più vicina al footer */
+  --cta-gap: 12px;           /* spazio tra Audio ON e INIZIA ORA */
+}
 
-.info-kiosk {
+/* =========================
+   HEADER (logo centrato) + FIX offset
+   ========================= */
+ion-header,
+ion-toolbar.toolbar-logo{
+  --background: transparent;
+  --min-height: 44px;
+  min-height: 44px;
+  height: 44px;
+}
+ion-toolbar.toolbar-logo{ position: relative; }
+.toolbar-center{
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  display: flex; align-items: center;
+}
+.toolbar-center img{ height: clamp(22px, 4.5vh, 30px); width: auto; }
+
+ion-content.kiosk{
+  --offset-top: 44px !important;  /* elimina “buco” tra header e content */
+  --overflow: hidden;             /* no scroll verticale globale */
+}
+
+/* =========================
+   LAYOUT
+   ========================= */
+.viewport{
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+/* Info box */
+.info-kiosk{
   text-align: center;
   background: #f4f4f4;
-  padding: 20px 10px;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #222;
+  padding: clamp(12px,2vh,24px) 10px;
+  color: #222; font-weight: 600;
+  border-radius: 8px;
+  margin: 4px 12px 8px;
+}
+.info-kiosk .clock{ font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; margin-bottom: 6px; }
+.info-kiosk .date{  font-size: clamp(1.1rem, 2.2vw, 1.6rem); margin-bottom: 6px; }
+.info-kiosk .weather{ font-size: clamp(1rem, 2vw, 1.4rem); font-style: italic; }
+
+/* Footer con due loghi */
+.pbc-footer{
+  --background: transparent; --border-color: transparent;
+  min-height: var(--pbc-footer-h);
+  z-index: 1000;
+}
+.pbc-footer .pbc-wrap{
+  width: 100%; display: flex; justify-content: center; align-items: center;
+  gap: 12px; padding: 6px 0;
+}
+.pbc-footer .brand-logo{
+  height: clamp(22px, 4vh, 36px); width: auto; opacity: .95;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.25));
+  user-select: none; -webkit-user-drag: none;
 }
 
-.info-kiosk .clock {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.info-kiosk .date {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
-.info-kiosk .weather {
-  font-size: 1.2rem;
-  font-style: italic;
-}
-
-ion-toolbar {
-  --background: transparent;
-}
-
-ion-content {
-  --overflow: hidden;
-}
-
-.slide-container {
-  display: grid;
-  grid-template-columns: repeat(4, 100%);
-  grid-template-rows: 1fr;
+/* =========================
+   SLIDES (orizzontali)
+   ========================= */
+.slide-container{
   height: 100%;
-  overflow: scroll;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+.slide{
+  position: relative; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  scroll-snap-align: center; scroll-snap-stop: always;
+  padding: 8px 12px; gap: 12px; text-align: center;
 }
 
-.slide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-}
+/* =========================
+   SLIDE 1: CAROSELLO SCROLLABILE
+   ========================= */
+.slide-ads{ gap: 10px; }
 
-.slide-title { margin-top: 2.8rem; }
-
-.slide-image {
-  max-width: 80%;
-  max-height: 50%;
-  margin: -5vh 0 0;
-  pointer-events: none;
-}
-
-b { font-weight: 500; }
-
-p {
-  padding: 0 40px;
-  color: var(--ion-color-step-600, #60646b);
-  font-size: 14px;
-  line-height: 1.5;
-
-  b { color: var(--ion-text-color, #000000); }
-}
-
-/* ====== AGGIUNTE PER LA SLIDE VIDEO ====== */
-
-/* Slide 2 con video: occupa il viewport; video/overlay visibili solo quando attiva */
-.slide-video {
+.ads-carousel{
   position: relative;
-  width: 100%;
-  min-height: 100dvh;
+  width: min(96%, 900px);
+  height: min(100%, 70vh);
+  margin: 0 auto;
+  display: grid; place-items: center;
+}
 
-  &:not(.active) .hero-video,
-  &:not(.active) .video-cta,
-  &:not(.active) .video-chrome {
-    display: none;
+.ads-track{
+  width: 100%; height: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  background: #fff;
+}
+.ads-track::-webkit-scrollbar{ display: none; }
+.ads-track{ scrollbar-width: none; }
+
+.ads-item{
+  display: grid; place-items: center;
+  scroll-snap-align: center; scroll-snap-stop: always;
+}
+.ads-item img{
+  width: 100%; height: 100%; object-fit: contain;
+  user-select: none; -webkit-user-drag: none; pointer-events: none;
+}
+
+/* indicatori */
+.ads-dots{
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px;
+}
+.ads-dots .dot{
+  width: 9px; height: 9px; border-radius: 999px;
+  background: rgba(255,255,255,.45);
+  outline: 1px solid rgba(0,0,0,.25);
+  cursor: pointer;
+}
+.ads-dots .dot.active{ background: rgba(255,255,255,.95); }
+
+/* =========================
+   SLIDE 2: CARD + TESTO GIUSTIFICATO
+   ========================= */
+.slide-info{ padding: 0 12px; }
+
+.info-card{
+  width: min(96%, 900px);
+  margin: 0 auto;
+  background: var(--ion-background-color, #fff);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  padding: clamp(12px, 2.5vh, 22px) clamp(16px, 3.2vw, 28px);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  overflow: hidden;
+}
+.info-card .slide-image{ max-height: 22vh; margin: 6px auto 0; object-fit: contain; }
+.info-card .slide-title{ margin: 8px 0 4px; }
+
+/* ✅ Testo giustificato */
+.info-card .slide-text{
+  padding: 0;
+  max-width: 68ch;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto;
+}
+
+/* Loghi enti */
+.info-card .partners-logos{
+  width: 100%; display: flex; justify-content: center;
+  margin-top: 8px; padding-top: 6px;
+  border-top: 1px solid color-mix(in oklab, currentColor 12%, transparent);
+}
+.info-card .partners-logos img{
+  width: clamp(220px, 70vw, 620px);
+  max-width: 92%;
+  height: auto; object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.12));
+  user-select: none; -webkit-user-drag: none;
+}
+
+/* =========================
+   SLIDE 3: VIDEO + CTA in basso
+   ========================= */
+.slide-video{
+  position: relative;
+  overflow: hidden;
+  display: grid; place-items: center;  /* centra solo il video */
+  height: 100%;
+}
+.hero-video{
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: center; background: #000; z-index: 0;
+}
+
+/* hamburger in alto a sinistra */
+.video-chrome{
+  position: absolute; top: max(10px, env(safe-area-inset-top)); left: 10px;
+  z-index: 3; filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
+}
+
+/* CTA in basso alla slide (ancorati al bottom) */
+.video-cta{
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--pbc-footer-h) + max(8px, env(safe-area-inset-bottom)) + var(--cta-video-lift));
+  display: flex; flex-direction: column; gap: var(--cta-gap);
+  z-index: 3; text-shadow: 0 2px 8px rgba(0,0,0,.45);
+}
+.video-cta .cta{ --border-radius: 16px; padding-inline: 22px; }
+
+/* Nascondi elementi quando la slide non è attiva */
+.slide-video:not(.active) .hero-video,
+.slide-video:not(.active) .video-cta,
+.slide-video:not(.active) .video-chrome{ display: none !important; }
+
+/* =========================
+   MODAL
+   ========================= */
+.image-modal::part(content){ --height:100%; --width:100%; --border-radius:0; background:#000; }
+.image-modal .image-modal-wrapper{ width:100vw; height:100vh; display:grid; place-items:center; background:#000; }
+.image-modal img{ width:100%; height:100%; object-fit:contain; }
+
+/* Fine tuning iPhone 14 Pro Max (portrait) */
+@supports (padding: max(0px)){
+  @media (device-width:430px) and (device-height:932px) and (orientation:portrait){
+    :root{ --cta-video-lift: 2px; --cta-gap: 10px; }
   }
 }
 
-/* Video a schermo intero fissato al viewport (niente bande) */
-.hero-video {
-  position: fixed;
-  inset: 0;
-  width: 100dvw;
-  height: 100dvh;
-  object-fit: cover;
-  background: #000;
-  z-index: 0; /* dietro a overlay e contenuti */
+/* =========================================================================
+   OVERRIDE FINALE: forza i CTA del video in basso (anti-centratura grid)
+   ========================================================================= */
+section.slide.slide-video{ position: relative !important; }
+section.slide.slide-video > .video-cta{
+  position: absolute !important;
+  left: 50% !important; transform: translateX(-50%) !important;
+  top: auto !important;
+  bottom: calc(var(--pbc-footer-h, 56px) + max(8px, env(safe-area-inset-bottom, 0px)) + var(--cta-video-lift, 4px)) !important;
+  display: flex !important; flex-direction: column !important;
+  gap: var(--cta-gap, 12px) !important;
+  z-index: 3 !important;
 }
-
-/* Hamburger/top chrome nella slide video */
-.video-chrome {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 2; /* sopra al video */
-  pointer-events: auto;
-  /* leggero effetto per leggibilità su video chiari */
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
-}
-
-/* CTA in basso (bottone più in basso come richiesto) */
-.video-cta {
-  position: fixed;
-  left: 50%;
-  bottom: 8dvh;           /* sposta più in alto/basso a piacere */
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  z-index: 2;             /* sopra al video */
-  text-shadow: 0 2px 8px rgba(0,0,0,.45);
-
-  .cta {
-    --border-radius: 16px;
-    padding-inline: 22px;
-  }
-}
-
-/* Assicura che info-kiosk e slide restino sopra al video quando serve */
-.info-kiosk,
-.slide-container {
-  position: relative;
-  z-index: 3;
-}
-
-/* Evita scroll verticale globale; restano solo le slide orizzontali */
-ion-content::part(scroll) { overflow: hidden; }

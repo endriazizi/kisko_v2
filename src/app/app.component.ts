@@ -88,62 +88,23 @@ export class AppComponent implements OnInit {
   private platform = inject(Platform);
 
   appPages = [
-    {
-      title: "Eventi",
-      url: "/app/tabs/schedule",
-      icon: "calendar",
-    },
-    {
-      title: "Attività",
-      url: "/app/tabs/speakers",
-      icon: "people",
-    },
-    {
-      title: "Map",
-      url: "/app/tabs/map",
-      icon: "map",
-    },
-    {
-      title: "About",
-      url: "/app/tabs/about",
-      icon: "information-circle",
-    },
-    {
-      title: "Infiorata",
-      url: "/app/tabs/infiorata",
-      icon: "information-circle",
-    },
-    {
-      title: "Turismo",
-      url: "/app/tabs/turismo",
-      icon: "information-circle",
-    },
-    {
-      title: "Vivere Camerino",
-      url: "/app/tabs/vivere-camerino",
-      icon: "newspaper",
-    },
-    {
-      title: "Cronache Maceratesi",
-      url: "/app/tabs/cronache-maceratesi",
-      icon: "newspaper",
-    },
+    { title: "Eventi", url: "/app/tabs/schedule", icon: "calendar" },
+    { title: "Attività", url: "/app/tabs/speakers", icon: "people" },
+    { title: "Map", url: "/app/tabs/map", icon: "map" },
+    { title: "About", url: "/app/tabs/about", icon: "information-circle" },
+    { title: "Infiorata", url: "/app/tabs/infiorata", icon: "information-circle" },
+    { title: "Turismo", url: "/app/tabs/turismo", icon: "information-circle" },
+    { title: "Vivere Camerino", url: "/app/tabs/vivere-camerino", icon: "newspaper" },
+    { title: "Cronache Maceratesi", url: "/app/tabs/cronache-maceratesi", icon: "newspaper" },
     { title: "Picchio News", url: "/app/tabs/picchio-news", icon: "newspaper" },
-    //      {
-    //   title: 'Comune di Castelraimondo',
-    //   url: '/app/tabs/comune-castelraimondo',
-    //   icon: 'information-circle'
-    // },
   ];
   loggedIn = false;
   dark = false;
 
   private inactivityTimer: any;
-  // private readonly TIMEOUT = 20000; // 20 secondi
-  private readonly TIMEOUT = 120000; // 20 secondi
+  private readonly TIMEOUT = 20000; // 20 secondi reali
 
   constructor() {
-    this.resetTimer(); // avvia il timer al bootstrap
     addIcons({
       calendarOutline,
       peopleOutline,
@@ -161,28 +122,58 @@ export class AppComponent implements OnInit {
       arrowBackOutline,
       newspaper,
       newspaperOutline,
+      informationCircleSharp,
+      newspaperSharp,
     });
   }
 
-  // Eventi di interazione utente
-  @HostListener("document:mousemove")
-  @HostListener("document:click")
+  // ========== Inattività: ascolta SOLO gesti reali, non lo scroll ==========
+  @HostListener("document:pointerdown")
   @HostListener("document:keydown")
   @HostListener("document:touchstart")
   onUserAction() {
-    this.resetTimer();
+    this.resetInactivityTimer();
   }
 
-  private resetTimer() {
+  // quando la tab torna visibile / finestra rifocalizzata → reset
+  @HostListener("document:visibilitychange")
+  onVisibilityChange() {
+    if (document.visibilityState === "visible") {
+      this.resetInactivityTimer();
+    }
+  }
+
+  @HostListener("window:focus")
+  onFocus() {
+    this.resetInactivityTimer();
+  }
+
+  private resetInactivityTimer() {
     if (this.inactivityTimer) {
       clearTimeout(this.inactivityTimer);
     }
 
     this.inactivityTimer = setTimeout(() => {
+      // evita redirect se sei già su /tutorial
+      if (this.isOnTutorial()) return;
+
       console.log("⏳ Timeout di inattività, torno al tutorial");
-      this.router.navigateByUrl("/tutorial", { replaceUrl: true });
+      this.router.navigateByUrl("/tutorial", { replaceUrl: true })
+        .catch(() => {});
     }, this.TIMEOUT);
   }
+
+  private isOnTutorial(): boolean {
+    // normalizza il path corrente (ignora query/hash)
+    const tree = this.router.parseUrl(this.router.url);
+    const current =
+      "/" +
+      (tree.root.children["primary"]?.segments.map((s) => s.path).join("/") ??
+        "");
+    return current === "/tutorial";
+  }
+
+  // ========================================================================
 
   async ngOnInit() {
     this.initializeApp();
@@ -190,20 +181,17 @@ export class AppComponent implements OnInit {
     this.checkLoginStatus();
     this.listenForLoginEvents();
 
+    // avvia il timer di inattività al boot
+    this.resetInactivityTimer();
+
+    // Service Worker update toast
     this.swUpdate.versionUpdates.subscribe(async () => {
       const toast = await this.toastCtrl.create({
         message: "Update available!",
         position: "bottom",
-        buttons: [
-          {
-            role: "cancel",
-            text: "Reload",
-          },
-        ],
+        buttons: [{ role: "cancel", text: "Reload" }],
       });
-
       await toast.present();
-
       toast
         .onDidDismiss()
         .then(() => this.swUpdate.activateUpdate())
@@ -233,17 +221,9 @@ export class AppComponent implements OnInit {
   }
 
   listenForLoginEvents() {
-    window.addEventListener("user:login", () => {
-      this.updateLoggedInStatus(true);
-    });
-
-    window.addEventListener("user:signup", () => {
-      this.updateLoggedInStatus(true);
-    });
-
-    window.addEventListener("user:logout", () => {
-      this.updateLoggedInStatus(false);
-    });
+    window.addEventListener("user:login", () => this.updateLoggedInStatus(true));
+    window.addEventListener("user:signup", () => this.updateLoggedInStatus(true));
+    window.addEventListener("user:logout", () => this.updateLoggedInStatus(false));
   }
 
   logout() {

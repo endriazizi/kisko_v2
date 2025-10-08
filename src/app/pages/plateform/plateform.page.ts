@@ -1,12 +1,13 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, AfterViewInit, Renderer2 } from "@angular/core";
 import { NgIf } from "@angular/common";
 import {
   IonContent, IonHeader, IonToolbar, IonTitle,
-  IonButtons, IonButton, IonIcon, IonNote } from "@ionic/angular/standalone";
+  IonButtons, IonButton, IonIcon, IonNote
+} from "@ionic/angular/standalone";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer, SafeResourceUrl, SafeHtml } from "@angular/platform-browser";
-import { isPlatform } from "@ionic/angular";
-import { Browser } from "@capacitor/browser"; // Capacitor Browser (funziona anche sul web)
+import { isPlatform, ToastController } from "@ionic/angular";
+import { Browser } from "@capacitor/browser";
 import { Speaker } from "../../interfaces/conference.interfaces";
 import { ConferenceService } from "../../providers/conference.service";
 
@@ -19,24 +20,30 @@ declare var cordova: any;
   standalone: true,
   imports: [IonNote, NgIf, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon],
 })
-export class PlateformPage implements OnInit {
+export class PlateformPage implements OnInit, AfterViewInit {
   isBrowser = false;
   private ref: any;
 
   private confData = inject(ConferenceService);
+  private toastCtrl = inject(ToastController);                 // ← NEW
   speakers: Speaker[] = [];
 
   url = "";
   safeUrl: SafeResourceUrl | null = null;
 
-  // NEW: gestione embed/iframe
   canIframe = false;
-  embedHtml?: SafeHtml; // per oEmbed IG post
+  embedHtml?: SafeHtml;
+  canIframeFeed = false;
+
+  // ⛔ EXACT URL (with or without querystring)
+  private readonly BLOCK_RX = /https?:\/\/(www\.)?elfsight\.com\/instagram-feed-instashow\/?(?:\?.*)?$/i; // ← NEW
+  blockedUrl = false;                                          // ← NEW
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
   ) {}
 
   ionViewDidEnter() {
@@ -45,83 +52,88 @@ export class PlateformPage implements OnInit {
 
   ngOnInit() {
     const encoded = this.route.snapshot.paramMap.get('id');
-    this.url = decodeURIComponent(encoded || 'https://ludwigstrasse.plateform.app/');
+    console.debug('[Plateform] route param id =', encoded);
 
-    // Web?
-    this.isBrowser = !('cordova' in (window as any));
+    if (encoded === 'feed') {
+      this.canIframeFeed = true;
+      this.ensureElfsightPlatformLoaded().then(() => {
+        console.debug('[Plateform] platform.js loaded');
+        setTimeout(() => (window as any).eapps?.initialize?.(), 0);
+      });
+    } else {
+      this.url = decodeURIComponent(encoded || 'https://ludwigstrasse.plateform.app/');
+      console.debug('[Plateform] url =', this.url);
 
-    if (this.isBrowser) {
-      if (this.isInstagramPost(this.url)) {
-        // usa embed ufficiale IG per i post
-        this.loadInstagramEmbed(this.url);
-        this.canIframe = false;
-      } else {
-        // iframe solo se il dominio lo consente
-        this.canIframe = this.canIframeUrl(this.url);
-        if (this.canIframe) {
-          this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-        }
+      // 🔒 BLOCK here if someone tries to route directly to the marketing page
+      if (this.BLOCK_RX.test(this.url)) {                      // ← NEW
+        this.blockedUrl = true;
+        console.warn('[Plateform] blocked by policy:', this.url);
+        this.toast('Navigation blocked by kiosk policy.');
+        this.url = ''; // ensure nothing loads
       }
+    }
+
+    this.isBrowser = !('cordova' in (window as any));
+    console.debug('[Plateform] isBrowser =', this.isBrowser);
+
+    // 🔒 Intercept clicks on <a> in this page before they navigate (web/PWA)  ← NEW
+    if (this.isBrowser) {
+      this.renderer.listen(document, 'click', (ev: Event) => {
+        const el = ev.target as HTMLElement;
+        const a = el?.closest?.('a[href]') as HTMLAnchorElement | null;
+        if (!a) return;
+        const href = a.href;
+        if (this.BLOCK_RX.test(href)) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          console.warn('[Plateform] blocked click:', href);
+          this.toast('Navigation blocked by kiosk policy.');
+        }
+      });
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.canIframeFeed) {
+      setTimeout(() => (window as any).eapps?.initialize?.(), 0);
+    }
+  }
+
+  /** Load Elfsight platform.js once */
+  private ensureElfsightPlatformLoaded(): Promise<void> {
+    return new Promise((resolve) => {
+      const already = document.querySelector('script[data-elfsight-platform]');
+      if (already) {
+        console.debug('[Plateform] platform.js already present');
+        resolve();
+        return;
+      }
+      const s = this.renderer.createElement('script');
+      s.src = 'https://elfsightcdn.com/platform.js';
+      s.async = true;
+      s.defer = true;
+      s.setAttribute('data-elfsight-platform', '1');
+      s.onload = () => resolve();
+      s.onerror = () => { console.error('[Plateform] failed to load platform.js'); resolve(); };
+      this.renderer.appendChild(document.body, s);
+    });
+  }
+
+  // 🔒 Guarded opener (use this instead of window.open/Browser.open)       ← NEW
+  async openExternal(url: string) {
+    if (this.BLOCK_RX.test(url)) {
+      console.warn('[Plateform] blocked openExternal:', url);
+      await this.toast('Navigation blocked by kiosk policy.');
       return;
     }
-
-    // Device (Cordova): ThemeableBrowser sempre in-app
-    this.ref = cordova.ThemeableBrowser.open(this.url, "_blank", {
-      toolbar: { height: 50, color: "#222222" },
-      closeButton: { wwwImage: "assets/icon/close.png", align: "left", event: "closePressed" },
-    });
-    this.ref.addEventListener("closePressed", () => this.ref.close());
+    if (isPlatform('capacitor')) await Browser.open({ url, presentationStyle: 'fullscreen' });
+    else window.open(url, '_blank', 'noopener');
   }
 
-  // === helper ===
-  private hostOf(u: string) {
-    try { return new URL(u).host.toLowerCase(); } catch { return ""; }
+  private async toast(message: string) {                         // ← NEW
+    const t = await this.toastCtrl.create({ message, duration: 1500, color: 'danger' });
+    await t.present();
   }
 
-  private isInstagram(u: string) {
-    const h = this.hostOf(u);
-    return h.endsWith("instagram.com");
-  }
-
-  private isInstagramPost(u: string) {
-    if (!this.isInstagram(u)) return false;
-    try {
-      const p = new URL(u).pathname;
-      return /^\/(p|reel|tv)\//.test(p);
-    } catch { return false; }
-  }
-
-  private canIframeUrl(u: string) {
-    // Blocca domini noti che inviano X-Frame-Options/CSP
-    const blocked = new Set([
-      "instagram.com","www.instagram.com",
-      "facebook.com","www.facebook.com",
-      "x.com","twitter.com","www.twitter.com"
-    ]);
-    const h = this.hostOf(u);
-    return !!h && !blocked.has(h);
-  }
-
-  private loadInstagramEmbed(postUrl: string) {
-    // Costruisce il markup che lo script IG trasforma in embed
-    const html =
-      `<blockquote class="instagram-media" data-instgrm-permalink="${postUrl}" data-instgrm-version="14"></blockquote>`;
-    this.embedHtml = this.sanitizer.bypassSecurityTrustHtml(html);
-    // trigger processing
-    setTimeout(() => (window as any).instgrm?.Embeds?.process?.(), 0);
-  }
-
-  async openExternal(url: string) {
-    // In-app su device; su web apre nuova scheda (rimani comunque nella tua PWA)
-    if (isPlatform('capacitor')) {
-      await Browser.open({ url, presentationStyle: 'fullscreen' });
-    } else {
-      window.open(url, '_blank', 'noopener');
-    }
-  }
-
-  goBack() {
-    if (this.ref) this.ref.close();
-    this.router.navigate(["/app/tabs/speakers"]);
-  }
+  goBack() { if (this.ref) this.ref.close(); this.router.navigate(["/app/tabs/speakers"]); }
 }

@@ -92,7 +92,7 @@ export class AppComponent implements OnInit {
     { title: "Attività", url: "/app/tabs/speakers", icon: "people" },
     { title: "Map", url: "/app/tabs/map", icon: "map" },
     { title: "About", url: "/app/tabs/about", icon: "information-circle" },
-    { title: "Infiorata", url: "/app/tabs/infiorata", icon: "information-circle" },
+    // { title: "Infiorata", url: "/app/tabs/infiorata", icon: "information-circle" },
     { title: "Turismo", url: "/app/tabs/turismo", icon: "information-circle" },
     { title: "Vivere Camerino", url: "/app/tabs/vivere-camerino", icon: "newspaper" },
     { title: "Cronache Maceratesi", url: "/app/tabs/cronache-maceratesi", icon: "newspaper" },

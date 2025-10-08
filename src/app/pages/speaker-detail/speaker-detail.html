@@ -31,7 +31,17 @@
 
   <div class="ion-padding speaker-detail">
     <img [src]="speaker?.logo" style="max-height:150px; display:block; margin:auto;">
-
+@if (speaker?.name === 'Ludwig' || speaker?.name === 'Gelateria Carnevali' || speaker?.name === 'Bar L\'eclissi') {
+  <div class="ion-padding">
+    <ion-button
+      expand="block"
+      color="primary"
+      [routerLink]="['/app/tabs/plateform', speaker?.sito]"
+    >
+      Apri SITO ATTIVITÀ
+    </ion-button>
+  </div>
+}
     <div class="about-text" [innerHTML]="speaker?.about || 'Loading biography...'"></div>
 
     <hr />
@@ -65,15 +75,5 @@
 
 
 
-@if (speaker?.name === 'Ludwig' || speaker?.name === 'Gelateria Carnevali' || speaker?.name === 'Bar L\'eclissi') {
-  <div class="ion-padding">
-    <ion-button
-      expand="block"
-      color="primary"
-      [routerLink]="['/app/tabs/plateform', speaker?.sito]"
-    >
-      Apri Plateform
-    </ion-button>
-  </div>
-}
+
 </ion-content>

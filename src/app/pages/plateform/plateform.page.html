@@ -10,48 +10,44 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!-- WEB: preferisci iframe se possibile -->
+<ion-content class="platform-page">
+  <!-- Web/PWA path -->
   <ng-container *ngIf="isBrowser; else deviceTpl">
-    <!-- ELFSIGHT WIDGET: Bar L'eclissi -->
-    @if (canIframeFeed) {
 
-    <div class="ion-padding">
-      <!-- your Elfsight embed goes here -->
-      <div
-        class="elfsight-app-fe37c329-97cf-45a9-acba-b156affa6f1d"
-        data-elfsight-app-lazy
-      ></div>
-      <div class="elfsight-app-xxx"></div>
-    </div>
-    }
+    <!-- 1) Elfsight feed -->
+    <ng-container *ngIf="canIframeFeed">
+      <div class="ion-padding">
+        <!-- your Elfsight widget id -->
+        <div class="elfsight-app-fe37c329-97cf-45a9-acba-b156affa6f1d" data-elfsight-app-lazy></div>
+      </div>
+    </ng-container>
 
-    <!-- 3A) Instagram POST embeddato -->
-    <div
-      *ngIf="embedHtml"
-      [innerHTML]="embedHtml"
-      style="max-width: 540px; margin: 0 auto"
-    ></div>
+    <!-- 2) Blocked URL -->
+    <ion-note *ngIf="blockedUrl" color="danger" class="ion-padding">
+      Navigazione bloccata dalla policy del kiosk.
+    </ion-note>
 
-    <!-- 3B) Sito iframabile -->
-    <!-- <iframe
-      *ngIf="!embedHtml && canIframe"
+    <!-- 3) Iframe for whitelisted hosts -->
+    <iframe
+      *ngIf="!canIframeFeed && !blockedUrl && canIframe && safeUrl"
+      class="platform-iframe"
       [src]="safeUrl"
-      style="width:100%; height:100%; border:none;"
-    ></iframe> -->
+      title="Embedded site"
+      referrerpolicy="no-referrer"
+      sandbox="allow-scripts allow-same-origin allow-forms">
+    </iframe>
 
-    <!-- 3C) Non embeddabile (es. profilo Instagram): fallback dentro la pagina -->
-    <!-- <div *ngIf="!embedHtml && !canIframe" class="blocked-wrap" style="padding:16px;">
-      <p>Questo sito non consente l’incorporamento. Aprilo comunque senza uscire dall’app.</p>
-      <ion-button (click)="openExternal(url)">
-        <ion-icon slot="start" name="logo-instagram"></ion-icon>
-        Apri
-      </ion-button>
-    </div> -->
+    <!-- 4) Fallback if the site can’t be embedded -->
+    <div *ngIf="!canIframeFeed && !blockedUrl && !canIframe" class="blocked-wrap ion-padding">
+      <p>Questo sito non consente l’incorporamento (o non è nella whitelist).</p>
+      <p class="muted">URL: {{ url }}</p>
+      <ion-button (click)="openExternal(url)" color="primary">Apri in nuova scheda</ion-button>
+    </div>
+
   </ng-container>
 
-  <!-- DEVICE: ThemeableBrowser già aperto in TS -->
+  <!-- Capacitor path -->
   <ng-template #deviceTpl>
-    <p>Caricamento Plateform...</p>
+    <p class="ion-padding">Caricamento Plateform…</p>
   </ng-template>
 </ion-content>

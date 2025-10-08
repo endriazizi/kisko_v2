@@ -2,80 +2,59 @@
    VARIABILI REGOLABILI
    ========================= */
 :root{
-  --pbc-footer-h: 56px;   /* altezza footer PBC */
-  --cta-video-lift: 1px;  /* ↓ più piccolo = bottoni più vicini al footer */
-  --cta-gap: 14px;        /* spazio tra Audio ON e INIZIA ORA */
+  --pbc-footer-h: 64px;     /* altezza footer */
+  --cta-video-lift: 2px;    /* ↓ più piccolo = bottoni più vicini al footer */
+  --cta-gap: 14px;          /* spazio tra Audio ON e INIZIA ORA */
+  --radius-lg: 16px;
+  --shadow-md: 0 10px 30px rgba(0,0,0,.18);
 }
 
 /* =========================
-   HEADER logo centrato
+   RESET IONIC / VIEWPORT
    ========================= */
+html, body, ion-app, ion-content{ height:100%; }
+.kiosk{ --overflow:hidden; }
+.kiosk::part(scroll){ overflow:hidden; }   /* niente scroll verticale */
+
+/* Toolbar con logo centrato */
 .toolbar-logo {
-  position: relative;
+  --background: #fff;
+  --border-color: transparent;
 }
-.toolbar-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  pointer-events: none;
+.toolbar-logo .toolbar-center{
+  position:absolute; inset:0; display:grid; place-items:center; pointer-events:none;
 }
-.toolbar-center img {
-  height: 28px;
-  width: auto;
-  object-fit: contain;
+.toolbar-logo .toolbar-center img{
+  height:40px; width:auto; object-fit:contain; pointer-events:none;
 }
 
 /* =========================
-   LAYOUT KIOSK
+   BLOCCO INFO (orario/meteo)
    ========================= */
-.kiosk{ --overflow:hidden; } /* no scroll verticale globale */
+.info-kiosk{
+  background:#f6f7f8;
+  color:#222;
+  font-weight:600;
+  border-radius:var(--radius-lg);
+  margin:10px 12px;
+  padding:14px 12px;
+  box-shadow: var(--shadow-md);
+  text-align:center;
+}
+.info-kiosk .clock{ font-size:1.9rem; font-weight:800; margin-bottom:6px; }
+.info-kiosk .date{  font-size:1.15rem; margin-bottom:6px; }
+.info-kiosk .weather{ font-size:1rem; font-style:italic; }
+
+/* =========================
+   VIEWPORT E SLIDES
+   ========================= */
 .viewport{
   height:100%;
   display:grid;
-  grid-template-rows:auto 1fr; /* info | slides */
+  grid-template-rows:auto 1fr;    /* info | slides */
 }
 
-/* =========================
-   INFO KIOSK
-   ========================= */
-.info-kiosk{
-  text-align:center;
-  background:#f4f4f4;
-  padding:clamp(12px,2vh,24px) 10px;
-  color:#222; font-weight:600;
-  border-radius:8px; margin:8px 12px;
-}
-.info-kiosk .clock{ font-size:clamp(2rem,4.5vw,3rem); font-weight:800; margin-bottom:6px; }
-.info-kiosk .date{  font-size:clamp(1.1rem,2.2vw,1.6rem); margin-bottom:6px; }
-.info-kiosk .weather{ font-size:clamp(1rem,2vw,1.4rem); font-style:italic; }
-
-ion-toolbar{ --background:transparent; }
-
-/* =========================
-   FOOTER PBC SEMPRE VISIBILE
-   ========================= */
-.pbc-footer{
-  --background:transparent;
-  --border-color:transparent;
-  min-height:var(--pbc-footer-h);
-  z-index:1000;
-}
-.pbc-footer .pbc-wrap{
-  width:100%;
-  display:flex; justify-content:center; align-items:center;
-  gap:18px; /* padding tra i due loghi */
-  padding:6px 0 8px;
-}
-.pbc-footer .brand-logo{
-  height:clamp(22px,4vh,36px);
-  width:auto; opacity:.95;
-  filter:drop-shadow(0 3px 10px rgba(0,0,0,.25));
-}
-
-/* =========================
-   SLIDES (solo swipe orizzontale)
-   ========================= */
+/* container con swipe orizzontale */
 .slide-container{
   height:100%;
   display:grid;
@@ -96,143 +75,114 @@ ion-toolbar{ --background:transparent; }
 /* =========================
    SLIDE 1: CAROSELLO A3
    ========================= */
-.slide-ads{ gap:10px; }
+.slide-ads{ gap:12px; }
+
+/* wrapper card */
 .ads-carousel{
   position:relative;
-  width:min(96%, 980px);
-  height:min(70vh, 680px);
+  width:min(96%, 1024px);
+  height:min(74vh, 820px);
   margin:0 auto;
-  display:grid; place-items:center;
+  border-radius:var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background:#fff;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  overflow:hidden;
 }
+
+/* track orizzontale */
 .ads-track{
   width:100%; height:100%;
-  display:grid;
-  grid-auto-flow:column;
-  grid-auto-columns:100%;
-  overflow:auto;
+  display:grid; grid-auto-flow:column; grid-auto-columns:100%;
+  overflow-x:auto; overflow-y:hidden;
   scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-  gap:0;
 }
 .ads-item{
   width:100%; height:100%;
   display:grid; place-items:center;
   scroll-snap-align:center;
-  padding:8px;
 }
 .ads-item img{
-  width:100%; height:100%;
-  object-fit:contain;
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 8px 24px rgba(0,0,0,.18);
-  user-select:none; -webkit-user-drag:none;
-  cursor:pointer;
+  width:100%; height:100%; object-fit:contain; user-select:none; -webkit-user-drag:none;
 }
+
+/* dots */
 .ads-dots{
-  position:absolute;
-  bottom:12px;
-  left:50%; transform:translateX(-50%);
-  display:flex; gap:6px;
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom:12px; display:flex; gap:8px;
 }
 .ads-dots .dot{
   width:9px; height:9px; border-radius:999px;
-  background:rgba(255,255,255,.45); outline:1px solid rgba(0,0,0,.25);
+  background:rgba(0,0,0,.25); outline:1px solid rgba(255,255,255,.6);
 }
-.ads-dots .dot.active{ background:rgba(255,255,255,.95); }
+.ads-dots .dot.active{ background:#fff; }
 
 /* =========================
-   SLIDE 2: LOGO + TESTO + LOGHI (card)
+   SLIDE 2: CARD + TESTO
    ========================= */
-.slide-info{
-  align-items:stretch;
-}
+.slide-info{ justify-content:flex-start; padding-top:8px; gap:10px; }
 .info-card{
-  width:min(96%, 980px);
+  width:min(96%, 1024px);
   margin:0 auto;
   background:#fff;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
-  padding:18px 16px 16px;
-  display:flex; flex-direction:column; align-items:center; gap:10px;
+  border-radius:var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding:18px 16px 20px;
 }
 .slide-image{
-  max-width:80%; max-height:20vh; margin:6px 0 0; pointer-events:none;
+  max-width:70%; max-height:22vh;
+  margin:8px auto 0; pointer-events:none;
 }
-.slide-title{ margin:8px 0 0; }
+.slide-title{ margin:14px 0 8px; font-weight:800; }
 .slide-title.tight{ margin-top:8px; }
 
-/* testo giustificato */
 .slide-text{
-  padding:0 18px;
-  color:var(--ion-color-step-600,#60646b);
-  font-size:15px;
-  line-height:1.55;
-  text-align:justify;
+  padding:0 18px; margin-top:6px;
+  color:#4d525a; font-size:15px; line-height:1.6;
+  text-align:justify; text-justify:auto; hyphens:auto;
 }
-.slide-text b{ color:var(--ion-text-color,#000); }
+.slide-text b{ color:#111; }
 
-.partners-logos{
-  margin-top:8px;
-  width:100%;
-  display:grid;
-  place-items:center;
-}
-.partners-logos img{
-  width:min(92%, 760px);
-  height:auto;
-  object-fit:contain;
-}
+/* loghi enti */
+.partners-logos{ display:grid; place-items:center; margin-top:12px; }
+.partners-logos img{ width:min(92%, 900px); height:auto; }
+
+/* CTA opzionale slide 2 */
+.slide2-cta{ margin-top:12px; --border-radius:16px; padding-inline:22px; }
 
 /* =========================
-   SLIDE 3: VIDEO (no crop) + CTA in basso
+   SLIDE 3: VIDEO + CTA
    ========================= */
-.slide-video{
-  position:relative; /* per ancorare CTA/chrome dentro la slide */
-  overflow:hidden;
-  display:grid; place-items:center;
-}
+.slide-video{ overflow:hidden; display:grid; place-items:center; }
+
 .hero-video{
-  position:relative;
-  width:100%; height:100%;
+  position:relative; width:100%; height:100%;
   max-width:100%; max-height:100%;
-  object-fit:contain; object-position:center;
-  background:#000; z-index:0;
+  object-fit:contain; object-position:center; background:#000; z-index:0;
 }
 
-/* overlay */
-.video-chrome, .video-cta{ position:absolute; z-index:3; }
+/* hamburger */
 .video-chrome{
-  top:max(10px, env(safe-area-inset-top));
-  left:10px;
+  position:absolute; z-index:3;
+  top:max(10px, env(safe-area-inset-top)); left:10px;
   filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));
 }
 
-/* 🔊 / INIZIA ORA: appena sopra il footer + safe-area */
+/* CTA in basso alla SLIDE (sopra footer) */
 .video-cta{
+  position:absolute; z-index:3;
   left:50%;
-  bottom:calc(
-    var(--pbc-footer-h) +
-    max(8px, env(safe-area-inset-bottom)) +
-    var(--cta-video-lift)
-  );
+  bottom:calc(var(--pbc-footer-h) + max(8px, env(safe-area-inset-bottom)) + var(--cta-video-lift));
   transform:translateX(-50%);
   display:flex; flex-direction:column; gap:var(--cta-gap);
   text-shadow:0 2px 8px rgba(0,0,0,.45);
-
-  .cta{ --border-radius:16px; padding-inline:22px; }
 }
+.video-cta .cta{ --border-radius:16px; padding-inline:22px; }
 
-/* nascondi UI quando la slide video non è attiva */
+/* nascondi UI quando la slide non è attiva (se usi [class.active]) */
 .slide-video:not(.active) .hero-video,
 .slide-video:not(.active) .video-cta,
 .slide-video:not(.active) .video-chrome{ display:none; }
-
-/* schermi bassi: piccoli aggiustamenti */
-@media (max-height:640px){
-  :root{ --cta-video-lift: 6px; }
-  .slide-text{ padding:0 12px; }
-}
 
 /* =========================
    MODAL IMMAGINE FULL-SCREEN
@@ -246,71 +196,55 @@ ion-toolbar{ --background:transparent; }
 .image-modal img{ width:100%; height:100%; object-fit:contain; }
 
 /* =========================
-   MODAL ASSISTENZA / WHATSAPP
+   FOOTER CON DUE LOGHI
    ========================= */
-.support-modal::part(content) {
-  --height: auto;
-  --width: min(92vw, 420px);
-  --border-radius: 14px;
-  padding: 16px;
+.pbc-footer{
+  --background:#fff;
+  --border-color:transparent;
+  min-height:var(--pbc-footer-h);
+  z-index:1000;
 }
-.support-modal-wrap {
-  display: grid;
-  gap: 12px;
-  text-align: center;
+.pbc-footer .pbc-wrap{
+  width:100%;
+  display:flex; justify-content:center; align-items:center;
+  gap:18px;                       /* spazio tra i due loghi */
+  padding:8px 0;
 }
-.support-modal-wrap h3 {
-  margin: 0 0 4px;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-.support-qr {
-  width: 220px;
-  height: 220px;
-  margin: 0 auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 18px rgba(0,0,0,.15);
-  background: #fff;
-}
-.support-note {
-  margin: 4px 0 0;
-  font-size: 0.9rem;
-  line-height: 1.35;
-}
-.support-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 4px;
+.pbc-footer .brand-logo{
+  height:34px; width:auto; opacity:.98;
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,.18));
 }
 
 /* =========================
-   OVERRIDE IPHONE 14 PRO MAX (430×932, portrait)
+   SCHERMI BASSI
    ========================= */
-@supports (padding: max(0px)){
-  @media (device-width:430px) and (device-height:932px) and (orientation:portrait){
-    :root{
-      --cta-video-lift: 1px;  /* vicino al footer come richiesto */
-      --cta-gap: 10px;
-    }
+@media (max-height:640px){
+  :root{ --cta-video-lift:2px; }
+  .slide-image{ max-height:18vh; }
+  .slide-text{ padding:0 14px; }
+}
+
+/* =========================
+   DESKTOP 1920×1080 (16:9)
+   ========================= */
+@media (width:1920px) and (height:1080px){
+  :root{
+    --pbc-footer-h: 72px;
+    --cta-video-lift: 2px;
+    --cta-gap: 12px;
   }
+  .info-kiosk{
+    margin:14px 18px; padding:16px 14px;
+    .clock{ font-size:2.2rem; }
+    .date{  font-size:1.2rem;  }
+    .weather{ font-size:1.05rem; }
+  }
+  .ads-carousel{ height:76vh; }
+  .slide-image{ max-height:24vh; }
+  .pbc-footer .brand-logo{ height:38px; }
 }
 
-
-/* Toast verde */
-.toast-green::part(container) {
-  --background: #22c55e;  /* verde */
-  --color: #ffffff;       /* testo bianco */
-  border-radius: 12px;
-}
-
-/* (opzionale) colore dei bottoni dentro il toast */
-.toast-green::part(button) {
-  color: #ffffff;
-  font-weight: 700;
-}
-
-/* (opzionale) se il footer lo copre, alzalo un filo */
-.toast-green::part(container) {
-  margin-bottom: 8px;
+/* fallback desktop larghi (≥1400px) */
+@media (min-width:1400px) and (min-height:900px){
+  .ads-carousel{ height:75vh; }
 }

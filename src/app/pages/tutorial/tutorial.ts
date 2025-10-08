@@ -122,8 +122,8 @@ export class TutorialPage implements OnInit, AfterViewInit, OnDestroy {
   // private readonly SUPPORT_TOAST_DELAY_MS = 10_000; // prima comparsa 10s
   // private readonly SUPPORT_TOAST_COOLDOWN_MS = 5 * 60_000; // poi ogni 5 min
 
-private readonly SUPPORT_TOAST_DELAY_MS = 2_000;     // 3s prima comparsa
-private readonly SUPPORT_TOAST_COOLDOWN_MS = 10_000; // ogni 10s
+private readonly SUPPORT_TOAST_DELAY_MS = 5_000;     // 3s prima comparsa
+private readonly SUPPORT_TOAST_COOLDOWN_MS = 20_000; // ogni 10s
 
   constructor() {
     addIcons({ arrowForward, close, menuOutline });
